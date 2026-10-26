@@ -1,0 +1,16 @@
+{
+  "eKWHL10bQuc": {
+    "source_video_id": "eKWHL10bQuc",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-26T20:51:46+00:00",
+        "media_id": "LUUEPt29pG8",
+        "error": ""
+      }
+    },
+    "source_episode": "235",
+    "updated_at": "2026-10-26T20:51:46+00:00"
+  }
+}
