@@ -1,75 +1,14 @@
 {
-  "date": "2026-10-26",
+  "date": "2026-10-27",
   "counts": {
-    "kaisi": 1,
-    "bhabhi": 1,
-    "sohni": 1,
-    "rimjhim": 1,
-    "mannsundar": 1,
-    "atisundar": 1,
-    "patibrahma": 1,
-    "ishq": 3
+    "rimjhim": 1
   },
   "history": [
     {
-      "show": "kaisi",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 1
-    },
-    {
-      "show": "bhabhi",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 1
-    },
-    {
-      "show": "sohni",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 1
-    },
-    {
       "show": "rimjhim",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
+      "time_ist": "02:22:03 IST",
+      "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
       "attempt": 1
-    },
-    {
-      "show": "mannsundar",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
-      "attempt": 1
-    },
-    {
-      "show": "atisundar",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
-      "attempt": 1
-    },
-    {
-      "show": "patibrahma",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
-      "attempt": 1
-    },
-    {
-      "show": "ishq",
-      "time_ist": "16:48:12 IST",
-      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
-      "attempt": 1
-    },
-    {
-      "show": "ishq",
-      "time_ist": "16:53:11 IST",
-      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 2
-    },
-    {
-      "show": "ishq",
-      "time_ist": "16:56:48 IST",
-      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 3
     }
   ]
 }
