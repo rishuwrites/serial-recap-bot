@@ -8,7 +8,7 @@
     "mannsundar": 1,
     "atisundar": 1,
     "patibrahma": 1,
-    "ishq": 1
+    "ishq": 2
   },
   "history": [
     {
@@ -58,6 +58,12 @@
       "time_ist": "16:48:12 IST",
       "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
       "attempt": 1
+    },
+    {
+      "show": "ishq",
+      "time_ist": "16:53:11 IST",
+      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
+      "attempt": 2
     }
   ]
 }
