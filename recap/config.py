@@ -1,9 +1,18 @@
 import os
 BASE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # repo root
+def env_bool(name, default=False):
+    value = os.getenv(name)
+    return default if value is None else value.strip().lower() in ("1", "true", "yes", "on")
+
 CHANNEL_ID = "UCNzmmbXIbMzlqE8nD1PBXfg"          # Dangal TV official channel
 FEED = f"https://www.youtube.com/feeds/videos.xml?channel_id={CHANNEL_ID}"
 UPLOADS_PLAYLIST = "UU" + CHANNEL_ID[2:]
 W, H, FPS = 1920, 1080, 24
+VERTICAL_W, VERTICAL_H = 1080, 1920
+META_GRAPH_API_VERSION = os.getenv("META_GRAPH_API_VERSION") or "v26.0"
+FACEBOOK_ENABLED = env_bool("FACEBOOK_ENABLED")
+INSTAGRAM_ENABLED = env_bool("INSTAGRAM_ENABLED")
+RENDER_VERTICAL = env_bool("RENDER_VERTICAL")
 VOICE = os.getenv("SERIAL_VOICE") or "hi-IN-SwaraNeural"
 CHANNEL_NAME = os.getenv("SERIAL_CHANNEL_NAME") or "सीरियल की कहानी"
 WPS = 2.3

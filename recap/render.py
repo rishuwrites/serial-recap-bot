@@ -5,8 +5,10 @@ import config as S
 W, H, FPS = S.W, S.H, S.FPS
 
 def find_font():
+    windows_fonts = os.path.join(os.environ.get("WINDIR", r"C:\Windows"), "Fonts")
     for pat in ["/usr/share/fonts/**/NotoSansDevanagari-Bold.ttf", "/usr/share/fonts/**/NotoSansDevanagari*Bold*.ttf",
-                "/usr/share/fonts/**/Mukta*Bold*.ttf", "/usr/share/fonts/**/*Devanagari*.ttf"]:
+                "/usr/share/fonts/**/Mukta*Bold*.ttf", "/usr/share/fonts/**/*Devanagari*.ttf",
+                os.path.join(windows_fonts, "Nirmala*.ttf"), os.path.join(windows_fonts, "*Devanagari*.ttf")]:
         f = glob.glob(pat, recursive=True)
         if f: return f[0]
     raise SystemExit("No Devanagari font found (apt install fonts-noto-core)")
@@ -203,8 +205,9 @@ def auto_music(tmp, total, emotion="tense"):
         music = generate_original_music(out_bed, total, emotion=emotion)
     return music
 
-def concat(files, tmp, out, music=None, total=0, emotion="tense"):
-    open(f"{tmp}/final.txt", "w").write("".join(f"file '{os.path.abspath(p)}'\n" for p in files))
+def concat(files, tmp, out, music=None, total=0, emotion="tense", audio_bitrate="160k"):
+    with open(f"{tmp}/final.txt", "w", encoding="utf-8") as concat_file:
+        concat_file.write("".join(f"file '{os.path.abspath(p)}'\n" for p in files))
     if not music:
         music = auto_music(tmp, total, emotion=emotion)
     raw = out + ".nomusic.mp4"
@@ -217,12 +220,12 @@ def concat(files, tmp, out, music=None, total=0, emotion="tense"):
                 f"[m_raw][sc]sidechaincompress=threshold=0.03:ratio=4:attack=50:release=400[m_duck];"
                 f"[vo][m_duck]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[a]")
     res = subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", raw, "-stream_loop", "-1", "-i", music, "-filter_complex",
-                          duck_flt, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out])
+                          duck_flt, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", audio_bitrate, "-movflags", "+faststart", out])
     if res.returncode != 0:
         basic_flt = (f"[1:a]volume={vol:.2f},afade=t=in:d=1.5,afade=t=out:st={fade_out_st:.2f}:d=2.5[m];"
                      f"[0:a][m]amix=inputs=2:duration=first:dropout_transition=0:normalize=0[a]")
         subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", raw, "-stream_loop", "-1", "-i", music, "-filter_complex",
-                        basic_flt, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", "160k", "-movflags", "+faststart", out], check=True)
+                        basic_flt, "-map", "0:v", "-map", "[a]", "-c:v", "copy", "-c:a", "aac", "-b:a", audio_bitrate, "-movflags", "+faststart", out], check=True)
     os.remove(raw)
 
 def thumbnail(img, hook, tag_text, bottom_text, out):

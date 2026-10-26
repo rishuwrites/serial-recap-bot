@@ -4,6 +4,7 @@ try:
 except ImportError:
     feedparser = None
 import config as S, youtube
+import publishing_state
 UA = {"User-Agent": "Mozilla/5.0 (compatible; SerialRecapBot/1.0)"}
 IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
 
@@ -169,6 +170,26 @@ def by_id(video_id):
                          headers=UA, timeout=20).json().get("title", "")
     ep, date_ = parse_title(title)
     return {"id": video_id, "url": f"https://www.youtube.com/watch?v={video_id}", "title": title, "episode": ep, "date": date_}
+
+def find_pending_social(key):
+    """Return the newest episode whose enabled social destination had a definite failed attempt."""
+    platforms = []
+    if S.FACEBOOK_ENABLED: platforms.append("facebook")
+    if S.INSTAGRAM_ENABLED: platforms.append("instagram")
+    if not platforms:
+        return None
+    video_id = publishing_state.failed_platforms(key, platforms)
+    if not video_id:
+        return None
+    try:
+        episode = by_id(video_id)
+    except (requests.RequestException, KeyError, ValueError) as exc:
+        print(f"   could not reload pending social episode {video_id}: {type(exc).__name__}: {str(exc)[:120]}")
+        return None
+    if not _matches_show(episode["title"], key):
+        print(f"   pending social state video does not match {key}; ignoring {video_id}")
+        return None
+    return episode
 
 def show_key_for(title):
     for k in S.SHOWS:

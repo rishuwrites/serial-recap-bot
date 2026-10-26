@@ -1,0 +1,12 @@
+.env
+.env.*
+!.env.example
+do not push.env
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+output/
+tmp_*/
+*.nomusic.mp4
+state/*.lock
