@@ -1,7 +1,7 @@
 {
   "date": "2026-10-27",
   "counts": {
-    "rimjhim": 3
+    "rimjhim": 4
   },
   "history": [
     {
@@ -21,6 +21,12 @@
       "time_ist": "02:43:27 IST",
       "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
       "attempt": 3
+    },
+    {
+      "show": "rimjhim",
+      "time_ist": "02:53:35 IST",
+      "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
+      "attempt": 4
     }
   ]
 }
