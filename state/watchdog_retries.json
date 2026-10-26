@@ -1,82 +1,63 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-26",
   "counts": {
-    "kaisi": 4,
-    "bhabhi": 4,
-    "sohni": 4
+    "kaisi": 1,
+    "bhabhi": 1,
+    "sohni": 1,
+    "rimjhim": 1,
+    "mannsundar": 1,
+    "atisundar": 1,
+    "patibrahma": 1,
+    "ishq": 1
   },
   "history": [
     {
       "show": "kaisi",
-      "time_ist": "00:02:59 IST",
-      "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
       "attempt": 1
     },
     {
       "show": "bhabhi",
-      "time_ist": "00:02:59 IST",
-      "reason": "unprocessed new episode 46 (tFegb2TotxU)",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
       "attempt": 1
     },
     {
       "show": "sohni",
-      "time_ist": "00:02:59 IST",
-      "reason": "unprocessed new episode 16 (6bEhGz3n0rs)",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (YOUTUBE_UPLOAD_ERROR)",
       "attempt": 1
     },
     {
-      "show": "kaisi",
-      "time_ist": "00:04:46 IST",
-      "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 2
+      "show": "rimjhim",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
+      "attempt": 1
     },
     {
-      "show": "bhabhi",
-      "time_ist": "00:04:46 IST",
-      "reason": "unprocessed new episode 46 (tFegb2TotxU)",
-      "attempt": 2
+      "show": "mannsundar",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
+      "attempt": 1
     },
     {
-      "show": "sohni",
-      "time_ist": "00:04:46 IST",
-      "reason": "unprocessed new episode 16 (6bEhGz3n0rs)",
-      "attempt": 2
+      "show": "atisundar",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
+      "attempt": 1
     },
     {
-      "show": "kaisi",
-      "time_ist": "00:05:20 IST",
-      "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 3
+      "show": "patibrahma",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
+      "attempt": 1
     },
     {
-      "show": "bhabhi",
-      "time_ist": "00:05:20 IST",
-      "reason": "unprocessed new episode 46 (tFegb2TotxU)",
-      "attempt": 3
-    },
-    {
-      "show": "sohni",
-      "time_ist": "00:05:20 IST",
-      "reason": "unprocessed new episode 16 (6bEhGz3n0rs)",
-      "attempt": 3
-    },
-    {
-      "show": "kaisi",
-      "time_ist": "00:09:12 IST",
-      "reason": "GitHub job failure (YOUTUBE_UPLOAD_ERROR)",
-      "attempt": 4
-    },
-    {
-      "show": "bhabhi",
-      "time_ist": "00:09:12 IST",
-      "reason": "unprocessed new episode 46 (tFegb2TotxU)",
-      "attempt": 4
-    },
-    {
-      "show": "sohni",
-      "time_ist": "00:09:12 IST",
-      "reason": "unprocessed new episode 16 (6bEhGz3n0rs)",
-      "attempt": 4
+      "show": "ishq",
+      "time_ist": "16:48:12 IST",
+      "reason": "GitHub job cancelled (UNKNOWN_OR_TIMEOUT)",
+      "attempt": 1
     }
   ]
 }
