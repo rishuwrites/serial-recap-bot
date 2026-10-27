@@ -12,5 +12,19 @@
     },
     "source_episode": "19",
     "updated_at": "2026-10-26T19:04:45+00:00"
+  },
+  "Os4ZsUB0DTM": {
+    "source_video_id": "Os4ZsUB0DTM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-27T19:07:26+00:00",
+        "media_id": "za84kLapRYg",
+        "error": ""
+      }
+    },
+    "source_episode": "20",
+    "updated_at": "2026-10-27T19:07:26+00:00"
   }
 }
