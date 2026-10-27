@@ -12,5 +12,19 @@
     },
     "source_episode": "1769",
     "updated_at": "2026-10-26T19:35:19+00:00"
+  },
+  "9tItjaCAnOk": {
+    "source_video_id": "9tItjaCAnOk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-27T19:35:02+00:00",
+        "media_id": "Y3UzU34L44I",
+        "error": ""
+      }
+    },
+    "source_episode": "1770",
+    "updated_at": "2026-10-27T19:35:02+00:00"
   }
 }
