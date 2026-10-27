@@ -12,5 +12,19 @@
     },
     "source_episode": "235",
     "updated_at": "2026-10-26T20:51:46+00:00"
+  },
+  "Ba9_Egld-3M": {
+    "source_video_id": "Ba9_Egld-3M",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-27T20:17:58+00:00",
+        "media_id": "JYB5Pr6u-3w",
+        "error": ""
+      }
+    },
+    "source_episode": "236",
+    "updated_at": "2026-10-27T20:17:58+00:00"
   }
 }
