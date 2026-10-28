@@ -26,5 +26,19 @@
     },
     "source_episode": "452",
     "updated_at": "2026-10-27T19:54:37+00:00"
+  },
+  "UW9UwzeFVEk": {
+    "source_video_id": "UW9UwzeFVEk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-28T20:12:16+00:00",
+        "media_id": "DXYieu95L0s",
+        "error": ""
+      }
+    },
+    "source_episode": "453",
+    "updated_at": "2026-10-28T20:12:16+00:00"
   }
 }
