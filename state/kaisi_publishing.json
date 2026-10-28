@@ -26,5 +26,19 @@
     },
     "source_episode": "98",
     "updated_at": "2026-10-27T19:17:57+00:00"
+  },
+  "93WgMg-ocBk": {
+    "source_video_id": "93WgMg-ocBk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-28T19:18:41+00:00",
+        "media_id": "k2G26Whuwrc",
+        "error": ""
+      }
+    },
+    "source_episode": "99",
+    "updated_at": "2026-10-28T19:18:41+00:00"
   }
 }
