@@ -12,5 +12,19 @@
     },
     "source_episode": "377",
     "updated_at": "2026-10-27T19:29:54+00:00"
+  },
+  "vNff9_nF-Co": {
+    "source_video_id": "vNff9_nF-Co",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-28T19:29:52+00:00",
+        "media_id": "FJOKSa9lF4g",
+        "error": ""
+      }
+    },
+    "source_episode": "378",
+    "updated_at": "2026-10-28T19:29:52+00:00"
   }
 }
