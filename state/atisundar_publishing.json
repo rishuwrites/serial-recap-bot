@@ -40,5 +40,19 @@
     },
     "source_episode": "1192",
     "updated_at": "2026-10-28T19:53:58+00:00"
+  },
+  "MZLmmpAv87Q": {
+    "source_video_id": "MZLmmpAv87Q",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-29T20:00:06+00:00",
+        "media_id": "ksAdCNlbJgo",
+        "error": ""
+      }
+    },
+    "source_episode": "1193",
+    "updated_at": "2026-10-29T20:00:06+00:00"
   }
 }
