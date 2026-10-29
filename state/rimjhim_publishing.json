@@ -26,5 +26,19 @@
     },
     "source_episode": "378",
     "updated_at": "2026-10-28T19:29:52+00:00"
+  },
+  "cmCh2VtB3ek": {
+    "source_video_id": "cmCh2VtB3ek",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-29T19:43:01+00:00",
+        "media_id": "kHDQYNsfCj8",
+        "error": ""
+      }
+    },
+    "source_episode": "379",
+    "updated_at": "2026-10-29T19:43:01+00:00"
   }
 }
