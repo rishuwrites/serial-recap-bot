@@ -1,5 +1,9 @@
-import json, os, time, requests
+import base64, io, json, os, time, requests
+from PIL import Image, UnidentifiedImageError
 BASE = "https://generativelanguage.googleapis.com/v1beta"
+
+class ThumbnailAnalysisError(RuntimeError):
+    pass
 
 def list_models(key):
     """Stable flash models first; preview/omni models often have 0 free quota (429), so they go last."""
@@ -19,6 +23,76 @@ def list_models(key):
     for n in names:
         if n and n not in seen: seen.append(n)
     return seen
+
+def describe_thumbnail(video_id):
+    """Describe the episode's public YouTube thumbnail for high-level composition cues."""
+    failures = []
+    image_bytes = None
+    for quality in ("maxresdefault", "sddefault", "hqdefault"):
+        try:
+            response = requests.get(
+                f"https://img.youtube.com/vi/{video_id}/{quality}.jpg", timeout=30
+            )
+            response.raise_for_status()
+            with Image.open(io.BytesIO(response.content)) as image:
+                if image.width < 320 or image.height < 180:
+                    failures.append(f"{quality}: thumbnail too small")
+                    continue
+                image.verify()
+            image_bytes = response.content
+            break
+        except requests.RequestException as exc:
+            failures.append(f"{quality}: {type(exc).__name__}")
+        except (UnidentifiedImageError, OSError) as exc:
+            failures.append(f"{quality}: invalid image ({type(exc).__name__})")
+    if image_bytes is None:
+        raise ThumbnailAnalysisError("Could not fetch a usable YouTube thumbnail: " + "; ".join(failures))
+
+    key = os.getenv("GEMINI_API_KEY")
+    if not key:
+        raise ThumbnailAnalysisError("GEMINI_API_KEY is required to describe the episode thumbnail")
+    models = list_models(key)[:8]
+    if not models:
+        raise ThumbnailAnalysisError("No Gemini models are available for thumbnail analysis")
+
+    prompt = (
+        "Describe this YouTube thumbnail for use as high-level composition guidance for a new, "
+        "original recap thumbnail. Include the number and placement of people, expressions, "
+        "background, lighting, colors, and text placement. Do not transcribe text, identify or "
+        "imitate real people, or suggest copying logos or exact artwork. Keep the description "
+        "concise and factual."
+    )
+    image_part = {
+        "inline_data": {
+            "mime_type": "image/jpeg",
+            "data": base64.b64encode(image_bytes).decode("ascii"),
+        }
+    }
+    last_error = "no Gemini response"
+    for model in models:
+        try:
+            response = requests.post(
+                f"{BASE}/models/{model}:generateContent",
+                params={"key": key},
+                json={"contents": [{"parts": [image_part, {"text": prompt}]}]},
+                timeout=90,
+            )
+        except requests.RequestException as exc:
+            last_error = f"{model}: {type(exc).__name__}"
+            continue
+        if response.status_code != 200:
+            last_error = f"{model}: HTTP {response.status_code} {response.text[:160]}"
+            continue
+        try:
+            description = response.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+        except (KeyError, IndexError, TypeError, ValueError) as exc:
+            last_error = f"{model}: invalid response ({type(exc).__name__})"
+            continue
+        if description:
+            print("  source thumbnail described with", model)
+            return description
+        last_error = f"{model}: empty description"
+    raise ThumbnailAnalysisError("Gemini could not describe the episode thumbnail: " + last_error)
 
 PROMPT = """आप एक हिंदी टीवी-सीरियल रिकैप राइटर हैं। यह वीडियो एक पूरा सीरियल-एपिसोड है। इसे ध्यान से देखें-सुनें और इसकी कहानी पर तेज़ रफ़्तार, 2-3 मिनट के YouTube वीडियो की स्क्रिप्ट बनाएँ।
 शैली (बहुत ज़रूरी):

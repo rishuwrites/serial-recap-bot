@@ -92,6 +92,11 @@ try:
 
     print("2/7 Gemini watches the episode")
     data = gemini.analyze(ep["url"], show["en"], SOURCE_EP_NO)
+    thumbnail_reference = ""
+    try:
+        thumbnail_reference = gemini.describe_thumbnail(ep["id"])
+    except gemini.ThumbnailAnalysisError as exc:
+        print("   source thumbnail analysis unavailable; using episode scene prompts:", str(exc)[:240])
     scenes = [s for s in data.get("scenes", []) if s.get("narration")]
     if TEST: scenes = scenes[:3]
     if len(scenes) < 4 and not TEST: raise SystemExit(f"Gemini returned too few scenes ({len(scenes)})")
@@ -168,7 +173,24 @@ try:
 
     print("6/7 thumbnail + metadata")
     thumb = name + ".jpg"
-    render.thumbnail(raws.get((hook_i, "close")) or raws.get((hook_i, "wide")) or comps[hook_i][0], data.get("thumb_text") or data.get("headline") or "क्या होगा आगे?",
+    thumbnail_prompt = (
+        "Create a dramatic, polished 16:9 YouTube recap thumbnail illustration. "
+        f"Episode moment: {scenes[hook_i].get('image_prompt', '')}. "
+        f"Emotional hook: {data.get('hook', '')}. "
+        "Use expressive original fictional faces, strong separation between foreground and background, "
+        "bright cinematic lighting, and clear space across the lower third for added Hindi title text. "
+        "Do not draw any text, letters, logos, or watermarks."
+    )
+    if thumbnail_reference:
+        thumbnail_prompt += (
+            " Use only the broad composition and color balance from this episode-thumbnail description; "
+            "do not reproduce its people, text, logo, or exact artwork: " + thumbnail_reference[:700]
+        )
+    thumbnail_art = f"{tmp}/thumbnail_art.jpg"
+    if not images.generate_thumbnail(thumbnail_prompt, seed + 1001, thumbnail_art):
+        print("   generated thumbnail art unavailable; using the existing episode illustration")
+        thumbnail_art = raws.get((hook_i, "close")) or raws.get((hook_i, "wide")) or comps[hook_i][0]
+    render.thumbnail(thumbnail_art, data.get("thumb_text") or data.get("headline") or "क्या होगा आगे?",
                       show["hi"], f"एपिसोड {EP_NO} | {hindi_date(DATE)}", thumb)
     kws = [str(k) for k in data.get("keywords", [])]
     title = meta.make_title(show, EP_NO, DATE, data.get("headline") or "", source_ep=SOURCE_EP_NO, source_date=SOURCE_DATE)

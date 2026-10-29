@@ -32,6 +32,49 @@ def _pollinations(prompt, seed, attempt=0):
         raise ValueError("not an image")
     return Image.open(io.BytesIO(r.content)).convert("RGB")
 
+def _flux(prompt, seed, attempt=0):
+    from gradio_client import Client
+
+    space = os.getenv("HF_FLUX_SPACE") or "https://black-forest-labs-flux-1-schnell.hf.space"
+    result = Client(space, verbose=False).predict(
+        prompt=prompt[:2000],
+        seed=int(seed),
+        randomize_seed=True,
+        width=1280,
+        height=720,
+        num_inference_steps=4,
+        api_name="/infer",
+    )
+    image_data = result[0] if isinstance(result, (list, tuple)) else result
+    if isinstance(image_data, dict):
+        image_data = image_data.get("path")
+    if isinstance(image_data, Image.Image):
+        return image_data.convert("RGB")
+    if not isinstance(image_data, (str, os.PathLike)):
+        raise ValueError("FLUX returned no image file")
+    return Image.open(image_data).convert("RGB")
+
+def generate_thumbnail(prompt, seed, out):
+    """Generate one 16:9 cover, preferring the FLUX Gradio Space then existing providers."""
+    full = f"{prompt}. Style: {S.STYLE}"
+    providers = (("flux", _flux, 1), ("cloudflare", _cloudflare, 3), ("pollinations", _pollinations, 3))
+    for name, fn, attempts in providers:
+        for attempt in range(attempts):
+            try:
+                im = fn(full, seed, attempt=attempt)
+                if im is None:
+                    break
+                if im.width < 400 or im.height < 300:
+                    raise ValueError("image is too small")
+                im.save(out, quality=92)
+                print(f"    thumbnail art ok via {name} (try {attempt + 1})")
+                return True
+            except Exception as exc:
+                print(f"    thumbnail {name} try {attempt + 1}/{attempts}: {type(exc).__name__}: {str(exc)[:80]}")
+                if attempt + 1 < attempts:
+                    time.sleep(6 * (attempt + 1))
+    return False
+
 def generate(prompt, seed, out):
     """Make one illustration. Tries Cloudflare (if configured) then Pollinations multi-model rotation. Returns True on success."""
     full = f"{prompt}. Style: {S.STYLE}"

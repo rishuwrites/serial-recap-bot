@@ -58,6 +58,12 @@ Meta API workflows were implemented against the official documentation:
 
 The Reel publisher validates the API's current media constraints before making requests: H.264 4:2:0 at 1080 × 1920, 23–60 FPS, AAC up to 48 kHz/128 kbps with one or two channels, 3 seconds–15 minutes, and no more than 300 MB. The renderer targets 24 FPS and 44.1 kHz AAC. The Graph API version defaults to `v26.0` (the version used in the current official examples reviewed for this integration). Set `META_GRAPH_API_VERSION` when upgrading, after verifying the current Meta docs and changelog.
 
+### Episode-aware thumbnail artwork
+
+For each episode, the bot asks Gemini to describe the source video's public YouTube thumbnail and uses only its broad composition and color balance as guidance. It then generates a fresh 1280 × 720 illustration with the FLUX.1-schnell Gradio Space and applies the bot's existing Hindi title, show, and episode overlays. The image prompt uses the analyzed episode hook and scene, and instructs the model not to reproduce faces, text, or logos from the source thumbnail. If thumbnail analysis or the public FLUX Space is unavailable, the bot logs the issue and falls back to the existing episode illustrations/providers.
+
+`gradio_client` is installed from `requirements.txt`. `HF_FLUX_SPACE` optionally overrides the public Gradio Space URL (set it as a GitHub Actions repository variable for the workflow); no Hugging Face token is required for the default public Space. Gemini uses the existing `GEMINI_API_KEY`. The implementation uses normal HTTPS networking and does not change process-wide DNS behavior.
+
 ### Software and local configuration
 
 Install Python dependencies and FFmpeg. On Ubuntu/GitHub Actions, FFmpeg and the Noto Devanagari fonts are installed by the workflow. Pillow must have RAQM shaping support for correctly positioned Devanagari marks; the workflow installs its system libraries. On Windows, install FFmpeg and make `ffmpeg` and `ffprobe` available on `PATH`; use a Pillow build with RAQM support and the renderer will look for the Windows Nirmala Devanagari font. A basic Pillow build can fall back to unshaped text, so verify captions before publishing. Use the existing Python dependencies:

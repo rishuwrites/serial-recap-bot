@@ -83,6 +83,7 @@ jobs:
           DO_UPLOAD: ${{ github.event_name == 'repository_dispatch' && 'true' || inputs.upload }}
           TEST_MODE: ${{ github.event_name == 'repository_dispatch' && 'false' || inputs.test_mode }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          HF_FLUX_SPACE: ${{ vars.HF_FLUX_SPACE || 'https://black-forest-labs-flux-1-schnell.hf.space' }}
           YT_API_KEY: ${{ secrets.YT_API_KEY }}
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
