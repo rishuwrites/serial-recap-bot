@@ -40,5 +40,19 @@
     },
     "source_episode": "237",
     "updated_at": "2026-10-28T20:23:01+00:00"
+  },
+  "6yvm9bWcx2Q": {
+    "source_video_id": "6yvm9bWcx2Q",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-29T20:13:55+00:00",
+        "media_id": "Vnmp7lPKSCM",
+        "error": ""
+      }
+    },
+    "source_episode": "238",
+    "updated_at": "2026-10-29T20:13:55+00:00"
   }
 }
