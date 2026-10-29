@@ -40,5 +40,19 @@
     },
     "source_episode": "99",
     "updated_at": "2026-10-28T19:18:41+00:00"
+  },
+  "3waky236PwI": {
+    "source_video_id": "3waky236PwI",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-29T19:16:19+00:00",
+        "media_id": "fkd_8OP6vR0",
+        "error": ""
+      }
+    },
+    "source_episode": "100",
+    "updated_at": "2026-10-29T19:16:19+00:00"
   }
 }
