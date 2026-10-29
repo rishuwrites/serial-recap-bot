@@ -40,5 +40,19 @@
     },
     "source_episode": "1771",
     "updated_at": "2026-10-28T19:39:35+00:00"
+  },
+  "baigGccrRjo": {
+    "source_video_id": "baigGccrRjo",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-29T19:34:09+00:00",
+        "media_id": "wVKVizd2ius",
+        "error": ""
+      }
+    },
+    "source_episode": "1772",
+    "updated_at": "2026-10-29T19:34:09+00:00"
   }
 }
