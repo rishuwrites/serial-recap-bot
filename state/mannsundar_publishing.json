@@ -54,5 +54,19 @@
     },
     "source_episode": "1772",
     "updated_at": "2026-10-29T19:34:09+00:00"
+  },
+  "tkCR6oz7GBs": {
+    "source_video_id": "tkCR6oz7GBs",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-30T19:27:11+00:00",
+        "media_id": "nUu1gTQmS_g",
+        "error": ""
+      }
+    },
+    "source_episode": "1773",
+    "updated_at": "2026-10-30T19:27:11+00:00"
   }
 }
