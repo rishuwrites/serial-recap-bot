@@ -8,11 +8,15 @@ The bot runs at **12:00 AM IST (Midnight)** via an external cron trigger and sch
 | `kaisi` | Kaisi Teri Dillagi (कैसी तेरी दिल्लगी) | **09:00 AM IST** |
 | `bhabhi` | Hamari Bhabhi Number 1 (हमारी भाभी नंबर 1) | **10:00 AM IST** |
 | `sohni` | Sohni Aur Nahi Koi Honi (सोहनी और नहीं कोई होनी) | **11:00 AM IST** |
-| `rimjhim` | Rimjhim (रिमझिम) | **12:00 PM IST** |
+| `rimjhim` | Rimjhim Choti Umar Bada Safar (रिमझिम छोटी उम्र बड़ा सफर) | **12:00 PM IST** |
 | `mannsundar` | Mann Sundar (मन सुंदर) | **01:00 PM IST** |
 | `atisundar` | Mann Atisundar (मन अतिसुंदर) | **02:00 PM IST** |
 | `patibrahma` | Pati Brahmachari (पति ब्रह्मचारी) | **03:00 PM IST** |
 | `ishq` | Ishq Junooni (इश्क़ जुनूनी) | **04:00 PM IST** |
+
+Each uploaded video gets a generated description with the show name, source and target episode/date, show-specific Hindi/English search phrases and hashtags, the recap/prediction, and the official source episode link. Search terms are generated for the next-day (+1) and two-day-ahead (+2) episode/date only, not for the source day. The description identifies the upload as a recap, not as the full episode.
+
+Example description for [Mann Atisundar episode 1193](./examples/mann_atisundar_MZLmmpAv87Q_description.txt).
 
 ## Why We Don't Use GitHub's Built-In Cron (And How to Trigger at 12:00 AM IST Sharp for Free)
 GitHub's internal `schedule:` cron frequently delays runs by 30–90 minutes or drops them during peak hours. Instead, this repo uses **external `workflow_dispatch` / `repository_dispatch`** triggered at **12:00 AM IST sharp** using any of the 100% free external schedulers included in `/scheduler`:

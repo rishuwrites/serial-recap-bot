@@ -28,7 +28,7 @@ SHOWS = {
     "kaisi":      {"match": "kaisi teri dillagi",     "en": "Kaisi Teri Dillagi",      "hi": "कैसी तेरी दिल्लगी",       "slot": (9, 0),  "alt": ["kaisi teri dilagi", "kaisi teri dillagi serial"]},
     "bhabhi":     {"match": "hamari bhabhi number 1", "en": "Hamari Bhabhi Number 1",  "hi": "हमारी भाभी नंबर 1",      "slot": (10, 0), "alt": ["hamari bhabhi no 1", "hamari bhabhi number one"]},
     "sohni":      {"match": "sohni",                  "en": "Sohni Aur Nahi Koi Honi", "hi": "सोहनी और नहीं कोई होनी",   "slot": (11, 0), "alt": ["sohni serial", "sohni aur nahi koi honi"]},
-    "rimjhim":    {"match": "rimjhim",                "en": "Rimjhim",                 "hi": "रिमझिम",                "slot": (12, 0), "alt": ["rimjhim choti umar bada safar", "rimjhim serial"]},
+    "rimjhim":    {"match": "rimjhim",                "en": "Rimjhim Choti Umar Bada Safar", "hi": "रिमझिम छोटी उम्र बड़ा सफर", "slot": (12, 0), "alt": ["rimjhim choti umar bada safar", "rimjhim serial"]},
     "mannsundar": {"match": "mann sundar",            "en": "Mann Sundar",             "hi": "मन सुंदर",               "slot": (13, 0), "alt": ["man sundar", "mann sundar serial"]},
     "atisundar":  {"match": "mann atisundar",         "en": "Mann Atisundar",          "hi": "मन अतिसुंदर",            "slot": (14, 0), "alt": ["man atisundar", "mann atisundar serial", "mann ati sundar"]},
     "patibrahma": {"match": "pati brahmachari",       "en": "Pati Brahmachari",        "hi": "पति ब्रह्मचारी",          "slot": (15, 0), "alt": ["pati brahmachari serial", "pati bramhachari"]},
