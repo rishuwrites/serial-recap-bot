@@ -76,16 +76,22 @@ def generate_thumbnail(prompt, seed, out):
     return False
 
 def generate(prompt, seed, out):
-    """Make one illustration. Tries Cloudflare (if configured) then Pollinations multi-model rotation. Returns True on success."""
+    """Make one illustration, preferring the FLUX Gradio Space then existing providers."""
     full = f"{prompt}. Style: {S.STYLE}"
-    for name, fn in (("cloudflare", _cloudflare), ("pollinations", _pollinations)):
-        for attempt in range(3):
+    providers = (("flux", _flux, 1), ("cloudflare", _cloudflare, 3), ("pollinations", _pollinations, 3))
+    for name, fn, attempts in providers:
+        for attempt in range(attempts):
             try:
                 im = fn(full, seed, attempt=attempt)
-                if im is None: break
-                if im.width < 400 or im.height < 300: raise ValueError("tiny")
-                im.save(out, quality=92); print(f"    image ok via {name} (try {attempt + 1})"); return True
-            except Exception as e:
-                print(f"    {name} try {attempt + 1}/3: {type(e).__name__}: {str(e)[:80]}")
-                time.sleep(6 * (attempt + 1))
+                if im is None:
+                    break
+                if im.width < 400 or im.height < 300:
+                    raise ValueError("image is too small")
+                im.save(out, quality=92)
+                print(f"    image ok via {name} (try {attempt + 1})")
+                return True
+            except Exception as exc:
+                print(f"    image {name} try {attempt + 1}/{attempts}: {type(exc).__name__}: {str(exc)[:80]}")
+                if attempt + 1 < attempts:
+                    time.sleep(6 * (attempt + 1))
     return False

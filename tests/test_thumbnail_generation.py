@@ -100,6 +100,19 @@ class ThumbnailGenerationTests(unittest.TestCase):
             with Image.open(output) as image:
                 self.assertEqual(image.size, (1280, 720))
 
+    def test_scene_image_generation_uses_flux_before_fallbacks(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "scene.jpg"
+            with mock.patch.object(images, "_flux", return_value=Image.new("RGB", (1280, 720))) as flux, \
+                    mock.patch.object(images, "_cloudflare") as cloudflare, \
+                    mock.patch.object(images, "_pollinations") as pollinations:
+                succeeded = images.generate("scene prompt", 42, str(output))
+
+        self.assertTrue(succeeded)
+        flux.assert_called_once()
+        cloudflare.assert_not_called()
+        pollinations.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
