@@ -54,5 +54,19 @@
     },
     "source_episode": "100",
     "updated_at": "2026-10-29T19:16:19+00:00"
+  },
+  "OxHriVbn48U": {
+    "source_video_id": "OxHriVbn48U",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-30T18:54:26+00:00",
+        "media_id": "k2P2hK48Ep0",
+        "error": ""
+      }
+    },
+    "source_episode": "101",
+    "updated_at": "2026-10-30T18:54:26+00:00"
   }
 }
