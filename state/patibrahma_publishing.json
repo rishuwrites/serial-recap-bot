@@ -54,5 +54,19 @@
     },
     "source_episode": "454",
     "updated_at": "2026-10-29T20:07:20+00:00"
+  },
+  "JoU2xoFhB-U": {
+    "source_video_id": "JoU2xoFhB-U",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-30T19:42:51+00:00",
+        "media_id": "IpfaxDHeEr4",
+        "error": ""
+      }
+    },
+    "source_episode": "455",
+    "updated_at": "2026-10-30T19:42:51+00:00"
   }
 }
