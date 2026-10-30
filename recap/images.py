@@ -1,7 +1,62 @@
-import base64, io, os, time, urllib.parse, requests
+import base64, io, ipaddress, json, os, re, socket, threading, time, urllib.parse, urllib.request, requests
 from PIL import Image
 import config as S
 _last = [0.0]
+_original_getaddrinfo = socket.getaddrinfo
+_dns_cache = {}
+_dns_lock = threading.Lock()
+_dns_resolution = threading.local()
+
+def _getaddrinfo_with_doh(host, port, family=0, type=0, proto=0, flags=0):
+    try:
+        return _original_getaddrinfo(host, port, family, type, proto, flags)
+    except socket.gaierror:
+        if not isinstance(host, str) or not host or family == socket.AF_INET6 or getattr(_dns_resolution, "active", False):
+            raise
+        with _dns_lock:
+            cached = _dns_cache.get(host)
+            address = cached[0] if cached and cached[1] > time.monotonic() else None
+            if cached and not address:
+                _dns_cache.pop(host, None)
+            if not address:
+                _dns_resolution.active = True
+                try:
+                    query = urllib.parse.urlencode({"name": host, "type": "A"})
+                    request = urllib.request.Request(
+                        f"https://dns.google/resolve?{query}",
+                        headers={"User-Agent": "Mozilla/5.0"},
+                    )
+                    with urllib.request.urlopen(request, timeout=10) as response:
+                        answer = json.loads(response.read().decode("utf-8"))
+                    for record in answer.get("Answer", []):
+                        if record.get("type") == 1:
+                            candidate = str(record.get("data", ""))
+                            try:
+                                if ipaddress.ip_address(candidate).version == 4:
+                                    address = candidate
+                                    ttl = max(1, min(int(record.get("TTL", 60)), 300))
+                                    _dns_cache[host] = (address, time.monotonic() + ttl)
+                                    break
+                            except ValueError:
+                                continue
+                finally:
+                    _dns_resolution.active = False
+        if address:
+            return _original_getaddrinfo(address, port, family, type, proto, flags)
+        raise
+
+socket.getaddrinfo = _getaddrinfo_with_doh
+
+def _retryable_image_error(exc):
+    response = getattr(exc, "response", None)
+    status = getattr(response, "status_code", None)
+    message = str(exc).lower()
+    if status is None:
+        match = re.search(r"\b([45]\d\d)\b", message)
+        status = int(match.group(1)) if match else None
+    if status in (400, 401, 402, 403, 404) or "zerogpu quota" in message or "payment required" in message:
+        return False
+    return True
 
 def _cloudflare(prompt, seed, attempt=0):
     acc, tok = os.getenv("CF_ACCOUNT_ID"), os.getenv("CF_API_TOKEN")
@@ -71,6 +126,8 @@ def generate_thumbnail(prompt, seed, out):
                 return True
             except Exception as exc:
                 print(f"    thumbnail {name} try {attempt + 1}/{attempts}: {type(exc).__name__}: {str(exc)[:80]}")
+                if not _retryable_image_error(exc):
+                    break
                 if attempt + 1 < attempts:
                     time.sleep(6 * (attempt + 1))
     return False
@@ -92,6 +149,8 @@ def generate(prompt, seed, out):
                 return True
             except Exception as exc:
                 print(f"    image {name} try {attempt + 1}/{attempts}: {type(exc).__name__}: {str(exc)[:80]}")
+                if not _retryable_image_error(exc):
+                    break
                 if attempt + 1 < attempts:
                     time.sleep(6 * (attempt + 1))
     return False

@@ -1,5 +1,7 @@
+import json
 import io
 import os
+import socket
 import sys
 import tempfile
 import unittest
@@ -73,6 +75,28 @@ class ThumbnailAnalysisTests(unittest.TestCase):
 
 
 class ThumbnailGenerationTests(unittest.TestCase):
+    def test_dns_over_https_fallback_handles_system_lookup_failure(self):
+        response = mock.MagicMock()
+        response.__enter__.return_value = response
+        response.read.return_value = json.dumps({
+            "Answer": [{"type": 1, "data": "203.0.113.10"}],
+        }).encode("utf-8")
+
+        def resolve(host, *args):
+            if host == "unresolved.example":
+                raise socket.gaierror("system DNS lookup failed")
+            if host == "203.0.113.10":
+                return ["resolved"]
+            raise AssertionError(f"Unexpected host: {host}")
+
+        images._dns_cache.clear()
+        self.addCleanup(images._dns_cache.clear)
+        with mock.patch.object(images, "_original_getaddrinfo", side_effect=resolve), \
+                mock.patch.object(images.urllib.request, "urlopen", return_value=response):
+            result = images._getaddrinfo_with_doh("unresolved.example", 443, socket.AF_INET)
+
+        self.assertEqual(result, ["resolved"])
+
     def test_flux_uses_configured_space_and_returns_its_image(self):
         with tempfile.TemporaryDirectory() as folder:
             image_path = Path(folder) / "generated.png"
@@ -112,6 +136,57 @@ class ThumbnailGenerationTests(unittest.TestCase):
         flux.assert_called_once()
         cloudflare.assert_not_called()
         pollinations.assert_not_called()
+
+    def test_zero_gpu_quota_skips_flux_retries_and_uses_next_provider(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "scene.jpg"
+            with mock.patch.object(
+                images, "_flux",
+                side_effect=RuntimeError("You have exceeded your ZeroGPU quota"),
+            ) as flux, \
+                    mock.patch.object(images, "_cloudflare", return_value=Image.new("RGB", (1280, 720))) as cloudflare, \
+                    mock.patch.object(images, "_pollinations") as pollinations, \
+                    mock.patch.object(images.time, "sleep") as sleep:
+                succeeded = images.generate("scene prompt", 42, str(output))
+
+        self.assertTrue(succeeded)
+        flux.assert_called_once()
+        cloudflare.assert_called_once()
+        pollinations.assert_not_called()
+        sleep.assert_not_called()
+
+    def test_payment_required_stops_retries_for_that_provider(self):
+        response = images.requests.Response()
+        response.status_code = 402
+        error = images.requests.HTTPError("402 Payment Required", response=response)
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "scene.jpg"
+            with mock.patch.object(images, "_flux", side_effect=RuntimeError("ZeroGPU quota")), \
+                    mock.patch.object(images, "_cloudflare", return_value=None), \
+                    mock.patch.object(images, "_pollinations", side_effect=error) as pollinations, \
+                    mock.patch.object(images.time, "sleep"):
+                succeeded = images.generate("scene prompt", 42, str(output))
+
+        self.assertFalse(succeeded)
+        pollinations.assert_called_once()
+
+    def test_transient_server_error_retries_pollinations(self):
+        response = images.requests.Response()
+        response.status_code = 503
+        error = images.requests.HTTPError("503 Service Unavailable", response=response)
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "scene.jpg"
+            with mock.patch.object(images, "_flux", side_effect=RuntimeError("space unavailable")), \
+                    mock.patch.object(images, "_cloudflare", return_value=None), \
+                    mock.patch.object(
+                        images, "_pollinations",
+                        side_effect=[error, Image.new("RGB", (1280, 720))],
+                    ) as pollinations, \
+                    mock.patch.object(images.time, "sleep"):
+                succeeded = images.generate("scene prompt", 42, str(output))
+
+        self.assertTrue(succeeded)
+        self.assertEqual(pollinations.call_count, 2)
 
 
 if __name__ == "__main__":
