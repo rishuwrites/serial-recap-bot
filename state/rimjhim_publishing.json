@@ -40,5 +40,19 @@
     },
     "source_episode": "379",
     "updated_at": "2026-10-29T19:43:01+00:00"
+  },
+  "eF7Q_1uk-lY": {
+    "source_video_id": "eF7Q_1uk-lY",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-30T19:14:48+00:00",
+        "media_id": "e3_oeVc0xaY",
+        "error": ""
+      }
+    },
+    "source_episode": "380",
+    "updated_at": "2026-10-30T19:14:48+00:00"
   }
 }
