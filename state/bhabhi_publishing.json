@@ -54,5 +54,19 @@
     },
     "source_episode": "52",
     "updated_at": "2026-10-29T19:08:35+00:00"
+  },
+  "JcfFxRV4LpY": {
+    "source_video_id": "JcfFxRV4LpY",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-10-30T18:59:24+00:00",
+        "media_id": "H7gkgyac79k",
+        "error": ""
+      }
+    },
+    "source_episode": "53",
+    "updated_at": "2026-10-30T18:59:24+00:00"
   }
 }
