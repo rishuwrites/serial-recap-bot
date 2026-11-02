@@ -1,12 +1,12 @@
 {
   "show": "bhabhi",
-  "status": "no_new_episode",
-  "date_ist": "2026-11-02",
-  "timestamp_ist": "2026-11-02 00:08:45 IST",
-  "source_video_id": "",
-  "source_episode": "",
-  "target_episode": "",
-  "youtube_video_id": "",
+  "status": "success",
+  "date_ist": "2026-11-03",
+  "timestamp_ist": "2026-11-03 00:31:07 IST",
+  "source_video_id": "KIaQ9rK9YkM",
+  "source_episode": "55",
+  "target_episode": "57",
+  "youtube_video_id": "gSNZjSVXKhY",
   "error": "",
-  "log_tail": "== Hamari Bhabhi Number 1 | slot=10:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
+  "log_tail": ""
 }
