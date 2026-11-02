@@ -82,5 +82,19 @@
     },
     "source_episode": "240",
     "updated_at": "2026-10-31T19:38:27+00:00"
+  },
+  "Y7YxU3PWCCE": {
+    "source_video_id": "Y7YxU3PWCCE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-02T19:24:19+00:00",
+        "media_id": "1wuEUvhFywo",
+        "error": ""
+      }
+    },
+    "source_episode": "241",
+    "updated_at": "2026-11-02T19:24:19+00:00"
   }
 }
