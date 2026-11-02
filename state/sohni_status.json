@@ -1,12 +1,12 @@
 {
   "show": "sohni",
-  "status": "no_new_episode",
-  "date_ist": "2026-11-02",
-  "timestamp_ist": "2026-11-02 00:08:48 IST",
-  "source_video_id": "",
-  "source_episode": "",
-  "target_episode": "",
-  "youtube_video_id": "",
+  "status": "success",
+  "date_ist": "2026-11-03",
+  "timestamp_ist": "2026-11-03 00:25:32 IST",
+  "source_video_id": "Y9t3EZCyvmc",
+  "source_episode": "25",
+  "target_episode": "27",
+  "youtube_video_id": "QKQn_rqTcj8",
   "error": "",
-  "log_tail": "== Sohni Aur Nahi Koi Honi | slot=11:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
+  "log_tail": ""
 }
