@@ -82,5 +82,19 @@
     },
     "source_episode": "102",
     "updated_at": "2026-10-31T18:54:21+00:00"
+  },
+  "VWGvqpl-3fM": {
+    "source_video_id": "VWGvqpl-3fM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-02T18:56:47+00:00",
+        "media_id": "hFTjmM-cDQg",
+        "error": ""
+      }
+    },
+    "source_episode": "103",
+    "updated_at": "2026-11-02T18:56:47+00:00"
   }
 }
