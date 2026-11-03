@@ -96,5 +96,19 @@
     },
     "source_episode": "55",
     "updated_at": "2026-11-02T19:01:07+00:00"
+  },
+  "VyWZyOxyTrw": {
+    "source_video_id": "VyWZyOxyTrw",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-03T19:14:08+00:00",
+        "media_id": "B6ln_ciCrrw",
+        "error": ""
+      }
+    },
+    "source_episode": "56",
+    "updated_at": "2026-11-03T19:14:08+00:00"
   }
 }
