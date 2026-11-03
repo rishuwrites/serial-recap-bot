@@ -96,5 +96,19 @@
     },
     "source_episode": "383",
     "updated_at": "2026-11-02T19:08:07+00:00"
+  },
+  "Vw8EOodKhwE": {
+    "source_video_id": "Vw8EOodKhwE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-03T19:20:04+00:00",
+        "media_id": "11af_miRQHQ",
+        "error": ""
+      }
+    },
+    "source_episode": "384",
+    "updated_at": "2026-11-03T19:20:04+00:00"
   }
 }
