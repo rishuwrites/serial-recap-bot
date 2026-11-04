@@ -110,5 +110,19 @@
     },
     "source_episode": "458",
     "updated_at": "2026-11-03T19:30:29+00:00"
+  },
+  "PD4AibC4-eo": {
+    "source_video_id": "PD4AibC4-eo",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-04T19:42:47+00:00",
+        "media_id": "3Z56KLmRcZs",
+        "error": ""
+      }
+    },
+    "source_episode": "459",
+    "updated_at": "2026-11-04T19:42:47+00:00"
   }
 }
