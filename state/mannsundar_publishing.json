@@ -124,5 +124,19 @@
     },
     "source_episode": "1777",
     "updated_at": "2026-11-03T19:25:59+00:00"
+  },
+  "DA-NFFGSKCU": {
+    "source_video_id": "DA-NFFGSKCU",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-04T19:14:54+00:00",
+        "media_id": "gc-RJlfZYQk",
+        "error": ""
+      }
+    },
+    "source_episode": "1778",
+    "updated_at": "2026-11-04T19:14:54+00:00"
   }
 }
