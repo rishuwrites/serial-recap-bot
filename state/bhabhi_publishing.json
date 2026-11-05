@@ -124,5 +124,19 @@
     },
     "source_episode": "57",
     "updated_at": "2026-11-04T18:56:37+00:00"
+  },
+  "pYsHAKq6hFQ": {
+    "source_video_id": "pYsHAKq6hFQ",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-05T19:38:56+00:00",
+        "media_id": "kBvjq18EV18",
+        "error": ""
+      }
+    },
+    "source_episode": "58",
+    "updated_at": "2026-11-05T19:38:56+00:00"
   }
 }
