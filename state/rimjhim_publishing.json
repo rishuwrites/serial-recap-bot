@@ -124,5 +124,19 @@
     },
     "source_episode": "385",
     "updated_at": "2026-11-04T19:14:33+00:00"
+  },
+  "BIZ-_R54dww": {
+    "source_video_id": "BIZ-_R54dww",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-05T18:59:58+00:00",
+        "media_id": "iPoe-I-vbY8",
+        "error": ""
+      }
+    },
+    "source_episode": "386",
+    "updated_at": "2026-11-05T18:59:58+00:00"
   }
 }
