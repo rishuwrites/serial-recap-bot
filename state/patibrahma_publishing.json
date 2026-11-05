@@ -124,5 +124,19 @@
     },
     "source_episode": "459",
     "updated_at": "2026-11-04T19:42:47+00:00"
+  },
+  "Aovf6PEawz8": {
+    "source_video_id": "Aovf6PEawz8",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-05T19:17:06+00:00",
+        "media_id": "LstHI-2Zqx8",
+        "error": ""
+      }
+    },
+    "source_episode": "460",
+    "updated_at": "2026-11-05T19:17:06+00:00"
   }
 }
