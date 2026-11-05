@@ -138,5 +138,19 @@
     },
     "source_episode": "1778",
     "updated_at": "2026-11-04T19:14:54+00:00"
+  },
+  "43F-iOk-mWE": {
+    "source_video_id": "43F-iOk-mWE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-05T19:01:49+00:00",
+        "media_id": "LVD1y0lcFrY",
+        "error": ""
+      }
+    },
+    "source_episode": "1779",
+    "updated_at": "2026-11-05T19:01:49+00:00"
   }
 }
