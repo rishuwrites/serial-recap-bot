@@ -124,5 +124,19 @@
     },
     "source_episode": "243",
     "updated_at": "2026-11-04T19:44:10+00:00"
+  },
+  "cPCBMBc1LAM": {
+    "source_video_id": "cPCBMBc1LAM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-05T19:30:18+00:00",
+        "media_id": "B1xFPOxN9I4",
+        "error": ""
+      }
+    },
+    "source_episode": "244",
+    "updated_at": "2026-11-05T19:30:18+00:00"
   }
 }
