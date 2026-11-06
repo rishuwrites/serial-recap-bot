@@ -138,5 +138,19 @@
     },
     "source_episode": "28",
     "updated_at": "2026-11-05T18:43:59+00:00"
+  },
+  "EPNCXloiwPI": {
+    "source_video_id": "EPNCXloiwPI",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-06T19:04:02+00:00",
+        "media_id": "GWLAQTvuj5w",
+        "error": ""
+      }
+    },
+    "source_episode": "29",
+    "updated_at": "2026-11-06T19:04:02+00:00"
   }
 }
