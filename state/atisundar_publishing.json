@@ -152,5 +152,19 @@
     },
     "source_episode": "1200",
     "updated_at": "2026-11-05T19:20:10+00:00"
+  },
+  "Eq_YgsZYt_8": {
+    "source_video_id": "Eq_YgsZYt_8",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-06T19:11:20+00:00",
+        "media_id": "xo4RqkdidW4",
+        "error": ""
+      }
+    },
+    "source_episode": "1201",
+    "updated_at": "2026-11-06T19:11:20+00:00"
   }
 }
