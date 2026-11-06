@@ -138,5 +138,19 @@
     },
     "source_episode": "106",
     "updated_at": "2026-11-05T18:46:26+00:00"
+  },
+  "Ss3660mRL3Q": {
+    "source_video_id": "Ss3660mRL3Q",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-06T18:59:18+00:00",
+        "media_id": "j33KSVzkj_k",
+        "error": ""
+      }
+    },
+    "source_episode": "107",
+    "updated_at": "2026-11-06T18:59:18+00:00"
   }
 }
