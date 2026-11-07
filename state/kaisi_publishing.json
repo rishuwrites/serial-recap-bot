@@ -152,5 +152,19 @@
     },
     "source_episode": "107",
     "updated_at": "2026-11-06T18:59:18+00:00"
+  },
+  "YcKtRKnQHns": {
+    "source_video_id": "YcKtRKnQHns",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-07T18:52:25+00:00",
+        "media_id": "OgWCGstmiYo",
+        "error": ""
+      }
+    },
+    "source_episode": "108",
+    "updated_at": "2026-11-07T18:52:25+00:00"
   }
 }
