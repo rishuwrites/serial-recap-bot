@@ -152,5 +152,19 @@
     },
     "source_episode": "245",
     "updated_at": "2026-11-06T19:26:08+00:00"
+  },
+  "IOo50zZ0pQM": {
+    "source_video_id": "IOo50zZ0pQM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-07T19:26:26+00:00",
+        "media_id": "8ATCaiaxwso",
+        "error": ""
+      }
+    },
+    "source_episode": "246",
+    "updated_at": "2026-11-07T19:26:26+00:00"
   }
 }
