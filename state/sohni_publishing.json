@@ -152,5 +152,19 @@
     },
     "source_episode": "29",
     "updated_at": "2026-11-06T19:04:02+00:00"
+  },
+  "WNB1P2T07ow": {
+    "source_video_id": "WNB1P2T07ow",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-07T18:56:01+00:00",
+        "media_id": "rAVjCv97V_8",
+        "error": ""
+      }
+    },
+    "source_episode": "30",
+    "updated_at": "2026-11-07T18:56:01+00:00"
   }
 }
