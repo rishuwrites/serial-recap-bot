@@ -152,5 +152,19 @@
     },
     "source_episode": "387",
     "updated_at": "2026-11-06T19:12:21+00:00"
+  },
+  "XIYmVN-l7fM": {
+    "source_video_id": "XIYmVN-l7fM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-07T19:10:14+00:00",
+        "media_id": "eKHRQvdy1FI",
+        "error": ""
+      }
+    },
+    "source_episode": "388",
+    "updated_at": "2026-11-07T19:10:14+00:00"
   }
 }
