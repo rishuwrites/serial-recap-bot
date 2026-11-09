@@ -166,5 +166,19 @@
     },
     "source_episode": "60",
     "updated_at": "2026-11-07T18:57:26+00:00"
+  },
+  "Zt-tRDWNvmg": {
+    "source_video_id": "Zt-tRDWNvmg",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-09T18:45:42+00:00",
+        "media_id": "PjU2xlq2XgU",
+        "error": ""
+      }
+    },
+    "source_episode": "61",
+    "updated_at": "2026-11-09T18:45:42+00:00"
   }
 }
