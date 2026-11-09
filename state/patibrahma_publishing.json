@@ -166,5 +166,19 @@
     },
     "source_episode": "462",
     "updated_at": "2026-11-07T19:24:48+00:00"
+  },
+  "NdejSYMVioU": {
+    "source_video_id": "NdejSYMVioU",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-09T19:14:40+00:00",
+        "media_id": "hbSvnn_9uDM",
+        "error": ""
+      }
+    },
+    "source_episode": "463",
+    "updated_at": "2026-11-09T19:14:40+00:00"
   }
 }
