@@ -180,5 +180,19 @@
     },
     "source_episode": "109",
     "updated_at": "2026-11-09T18:46:52+00:00"
+  },
+  "4oUCKxP8jOg": {
+    "source_video_id": "4oUCKxP8jOg",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-10T19:06:51+00:00",
+        "media_id": "NUk7kYusriI",
+        "error": ""
+      }
+    },
+    "source_episode": "110",
+    "updated_at": "2026-11-10T19:06:51+00:00"
   }
 }
