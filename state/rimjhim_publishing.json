@@ -208,5 +208,19 @@
     },
     "source_episode": "391",
     "updated_at": "2026-11-10T19:28:02+00:00"
+  },
+  "C-3zq2PCnjI": {
+    "source_video_id": "C-3zq2PCnjI",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-11T19:26:06+00:00",
+        "media_id": "-e9-Y10LIvk",
+        "error": ""
+      }
+    },
+    "source_episode": "392",
+    "updated_at": "2026-11-11T19:26:06+00:00"
   }
 }
