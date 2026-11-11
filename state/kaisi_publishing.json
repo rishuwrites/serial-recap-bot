@@ -194,5 +194,19 @@
     },
     "source_episode": "110",
     "updated_at": "2026-11-10T19:06:51+00:00"
+  },
+  "t_vSZjezklE": {
+    "source_video_id": "t_vSZjezklE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-11T19:10:39+00:00",
+        "media_id": "7PHBWp1UpaM",
+        "error": ""
+      }
+    },
+    "source_episode": "111",
+    "updated_at": "2026-11-11T19:10:39+00:00"
   }
 }
