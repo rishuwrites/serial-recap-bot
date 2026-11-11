@@ -194,5 +194,19 @@
     },
     "source_episode": "62",
     "updated_at": "2026-11-10T18:54:46+00:00"
+  },
+  "M9_3UETso0E": {
+    "source_video_id": "M9_3UETso0E",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-11T19:22:41+00:00",
+        "media_id": "e3ygC0x4wiQ",
+        "error": ""
+      }
+    },
+    "source_episode": "63",
+    "updated_at": "2026-11-11T19:22:41+00:00"
   }
 }
