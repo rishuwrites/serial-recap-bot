@@ -208,5 +208,19 @@
     },
     "source_episode": "249",
     "updated_at": "2026-11-11T19:53:22+00:00"
+  },
+  "v4ywnU-yeAU": {
+    "source_video_id": "v4ywnU-yeAU",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-13T20:03:38+00:00",
+        "media_id": "r6QssP4eFLY",
+        "error": ""
+      }
+    },
+    "source_episode": "251",
+    "updated_at": "2026-11-13T20:03:38+00:00"
   }
 }
