@@ -236,5 +236,19 @@
     },
     "source_episode": "1785",
     "updated_at": "2026-11-11T19:53:27+00:00"
+  },
+  "5mnncf7mzgM": {
+    "source_video_id": "5mnncf7mzgM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-13T19:28:42+00:00",
+        "media_id": "0eEyl8hIEEg",
+        "error": ""
+      }
+    },
+    "source_episode": "1787",
+    "updated_at": "2026-11-13T19:28:42+00:00"
   }
 }
