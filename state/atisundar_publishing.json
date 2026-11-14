@@ -236,5 +236,19 @@
     },
     "source_episode": "1206",
     "updated_at": "2026-11-11T19:35:46+00:00"
+  },
+  "XALb1M7XMpo": {
+    "source_video_id": "XALb1M7XMpo",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-14T02:51:00+00:00",
+        "media_id": "xIQqD9AD3Js",
+        "error": ""
+      }
+    },
+    "source_episode": "1208",
+    "updated_at": "2026-11-14T02:51:00+00:00"
   }
 }
