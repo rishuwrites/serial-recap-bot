@@ -236,5 +236,19 @@
     },
     "source_episode": "467",
     "updated_at": "2026-11-14T03:05:30+00:00"
+  },
+  "g6GI2_tDbUk": {
+    "source_video_id": "g6GI2_tDbUk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-14T19:28:39+00:00",
+        "media_id": "nLKE0fsXFEE",
+        "error": ""
+      }
+    },
+    "source_episode": "468",
+    "updated_at": "2026-11-14T19:28:39+00:00"
   }
 }
