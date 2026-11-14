@@ -222,5 +222,19 @@
     },
     "source_episode": "113",
     "updated_at": "2026-11-14T01:59:32+00:00"
+  },
+  "_eorw64Yrrs": {
+    "source_video_id": "_eorw64Yrrs",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-14T19:01:53+00:00",
+        "media_id": "uVcTIoA8AJ8",
+        "error": ""
+      }
+    },
+    "source_episode": "114",
+    "updated_at": "2026-11-14T19:01:53+00:00"
   }
 }
