@@ -1,0 +1,16 @@
+{
+  "ABAEDx0GeY4": {
+    "source_video_id": "ABAEDx0GeY4",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-14T04:25:15+00:00",
+        "media_id": "88bZYerxZwg",
+        "error": ""
+      }
+    },
+    "source_episode": "11",
+    "updated_at": "2026-11-14T04:25:15+00:00"
+  }
+}
