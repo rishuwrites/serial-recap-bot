@@ -250,5 +250,19 @@
     },
     "source_episode": "1787",
     "updated_at": "2026-11-13T19:28:42+00:00"
+  },
+  "0Dg0V_ESKLM": {
+    "source_video_id": "0Dg0V_ESKLM",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-14T19:13:07+00:00",
+        "media_id": "1tbpLRUojLQ",
+        "error": ""
+      }
+    },
+    "source_episode": "1788",
+    "updated_at": "2026-11-14T19:13:07+00:00"
   }
 }
