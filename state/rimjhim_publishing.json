@@ -222,5 +222,19 @@
     },
     "source_episode": "392",
     "updated_at": "2026-11-11T19:26:06+00:00"
+  },
+  "l-Inr2G_SKE": {
+    "source_video_id": "l-Inr2G_SKE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-14T03:37:02+00:00",
+        "media_id": "w4R94SRPvHk",
+        "error": ""
+      }
+    },
+    "source_episode": "394",
+    "updated_at": "2026-11-14T03:37:02+00:00"
   }
 }
