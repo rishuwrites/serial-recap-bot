@@ -12,10 +12,11 @@ import meta
 
 class VideoDescriptionTests(unittest.TestCase):
     def test_saanche_darbar_episode_title_matches_the_feed(self):
-        title = "Saanche Darbar Ki Jai Dhyanu Bhagat Ki Amar Kahani | Full Episode 1"
+        title = "Saanche Darbar Ki Jai Dhyanu Bhagat Ki Amar Kahani | 13 Nov 2026 Full HD Episode 11 | Dangal TV"
 
         self.assertTrue(feed._matches_show(title, "saanche"))
         self.assertTrue(feed._is_full_episode(title))
+        self.assertEqual(feed.parse_title(title), ("11", "13 Nov 2026"))
 
     def test_saanche_darbar_uses_requested_ist_slot(self):
         show = config.SHOWS["saanche"]

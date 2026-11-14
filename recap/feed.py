@@ -135,7 +135,7 @@ def _matches_show(title, key):
 
 def _is_full_episode(title):
     t = (title or "").lower()
-    return "full episode" in t or "full ep" in t or "पूरा एपिसोड" in t
+    return "full episode" in t or "full hd episode" in t or "full ep" in t or "पूरा एपिसोड" in t
 
 def parse_title(title):
     ep_m = (re.search(r"(?:Episode|Ep\.?|एपिसोड)\s*[:#\-]?\s*(\d+)", title or "", re.I) or
