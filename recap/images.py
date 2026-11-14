@@ -1,11 +1,25 @@
+import atexit
 import base64, io, ipaddress, json, os, re, socket, threading, time, urllib.parse, urllib.request, requests
 from PIL import Image
+from playwright.sync_api import sync_playwright
 import config as S
 _last = [0.0]
 _original_getaddrinfo = socket.getaddrinfo
 _dns_cache = {}
 _dns_lock = threading.Lock()
 _dns_resolution = threading.local()
+_deepai_playwright = None
+_deepai_browser = None
+_deepai_page = None
+_deepai_last_generation = 0.0
+_deepai_disabled_reason = None
+_DEEPAI_URL = "https://deepai.org/machine-learning-model/text2img"
+_DEEPAI_IMAGE_PREFIX = "https://api.deepai.org/job-view-file/"
+_DEEPAI_MIN_INTERVAL = 5.0
+
+
+class DeepAIUnavailableError(RuntimeError):
+    """DeepAI generation cannot continue without bypassing a restriction."""
 
 def _getaddrinfo_with_doh(host, port, family=0, type=0, proto=0, flags=0):
     try:
@@ -58,7 +72,150 @@ def _retryable_image_error(exc):
             or "daily free allocation" in message or "out of credits" in message
             or "insufficient credit" in message or "payment required" in message):
         return False
+    if any(marker in message for marker in ("captcha", "verify you are human", "rate limit", "too many requests")):
+        return False
     return True
+
+def _close_deepai():
+    global _deepai_playwright, _deepai_browser, _deepai_page
+
+    try:
+        if _deepai_browser and _deepai_browser.is_connected():
+            _deepai_browser.close()
+    finally:
+        if _deepai_playwright:
+            _deepai_playwright.stop()
+        _deepai_playwright = None
+        _deepai_browser = None
+        _deepai_page = None
+
+
+atexit.register(_close_deepai)
+
+
+def _deepai_page_for_generation():
+    global _deepai_playwright, _deepai_browser, _deepai_page, _deepai_disabled_reason
+
+    if _deepai_disabled_reason:
+        raise DeepAIUnavailableError(_deepai_disabled_reason)
+    if _deepai_browser and _deepai_browser.is_connected() and _deepai_page:
+        return _deepai_page
+
+    try:
+        _deepai_playwright = sync_playwright().start()
+        _deepai_browser = _deepai_playwright.chromium.launch(headless=True)
+        _deepai_page = _deepai_browser.new_page()
+        response = _deepai_page.goto(_DEEPAI_URL, wait_until="domcontentloaded", timeout=60_000)
+        if response is None or response.status >= 400:
+            status = response.status if response else "no response"
+            _deepai_disabled_reason = f"DeepAI image page failed to load ({status})"
+            raise DeepAIUnavailableError(_deepai_disabled_reason)
+        _check_deepai_restriction(_deepai_page)
+        _deepai_page.locator("#generate-textarea").wait_for(timeout=30_000)
+    except DeepAIUnavailableError:
+        raise
+    except Exception as exc:
+        _deepai_disabled_reason = (
+            f"DeepAI browser or generator page is unavailable ({type(exc).__name__})"
+        )
+        raise DeepAIUnavailableError(_deepai_disabled_reason) from exc
+    return _deepai_page
+
+
+def _check_deepai_restriction(page):
+    global _deepai_disabled_reason
+
+    text = page.locator("body").inner_text(timeout=10_000).lower()
+    markers = (
+        "verify you are human",
+        "are you a human",
+        "captcha",
+        "unusual traffic",
+        "rate limit",
+        "too many requests",
+    )
+    match = next((marker for marker in markers if marker in text), None)
+    if match:
+        _deepai_disabled_reason = (
+            f"DeepAI displayed a {match} restriction; stopping DeepAI attempts without bypassing it"
+        )
+        raise DeepAIUnavailableError(_deepai_disabled_reason)
+
+
+def _deepai(prompt, seed, attempt=0):
+    global _deepai_last_generation, _deepai_disabled_reason
+
+    del seed, attempt
+    page = _deepai_page_for_generation()
+    _check_deepai_restriction(page)
+    wait = _DEEPAI_MIN_INTERVAL - (time.monotonic() - _deepai_last_generation)
+    if wait > 0:
+        time.sleep(wait)
+
+    previous_urls = set(
+        page.locator("main img").evaluate_all(
+            """(images, prefix) =>
+                images.map(image => image.currentSrc || image.src)
+                    .filter(src => src.startsWith(prefix))""",
+            _DEEPAI_IMAGE_PREFIX,
+        )
+    )
+    try:
+        page.locator("#generate-textarea").fill(prompt[:2000])
+        submit = page.locator("#modelSubmitButton")
+        submit.wait_for(state="visible", timeout=10_000)
+        page.wait_for_function(
+            "() => !document.querySelector('#modelSubmitButton')?.disabled",
+            timeout=10_000,
+        )
+        submit.click()
+        page.wait_for_function(
+            """({prefix, previous}) =>
+                [...document.querySelectorAll('main img')].some(image => {
+                    const src = image.currentSrc || image.src;
+                    return src.startsWith(prefix) && !previous.includes(src)
+                        && image.complete && image.naturalWidth >= 400 && image.naturalHeight >= 300;
+                })""",
+            arg={"prefix": _DEEPAI_IMAGE_PREFIX, "previous": list(previous_urls)},
+            timeout=180_000,
+        )
+    except Exception as exc:
+        try:
+            _check_deepai_restriction(page)
+        except DeepAIUnavailableError:
+            raise
+        message = str(exc).lower()
+        if "429" in message or "403" in message:
+            _deepai_disabled_reason = "DeepAI rate-limited or blocked image generation; stopping DeepAI attempts"
+        else:
+            _deepai_disabled_reason = (
+                f"DeepAI generation failed ({type(exc).__name__}); stopping further DeepAI attempts"
+            )
+        raise DeepAIUnavailableError(_deepai_disabled_reason) from exc
+
+    image_urls = page.locator("main img").evaluate_all(
+        """(images, args) => {
+            const image = images.find(element => {
+                const src = element.currentSrc || element.src;
+                return src.startsWith(args.prefix) && !args.previous.includes(src)
+                    && element.complete && element.naturalWidth >= 400 && element.naturalHeight >= 300;
+            });
+            return image ? [image.currentSrc || image.src] : [];
+        }""",
+        {"prefix": _DEEPAI_IMAGE_PREFIX, "previous": list(previous_urls)},
+    )
+    if not image_urls:
+        raise RuntimeError("DeepAI completed generation but no output image was found")
+    response = page.request.get(image_urls[0], timeout=60_000)
+    if not response.ok:
+        if response.status in (403, 429):
+            _deepai_disabled_reason = (
+                f"DeepAI image download was blocked with HTTP {response.status}; stopping DeepAI attempts"
+            )
+        raise RuntimeError(f"DeepAI image download failed with HTTP {response.status}")
+    image = Image.open(io.BytesIO(response.body())).convert("RGB")
+    _deepai_last_generation = time.monotonic()
+    return image
 
 def _cloudflare(prompt, seed, attempt=0):
     acc = (os.getenv("CLOUDFLARE_ACCOUNT_ID") or os.getenv("CF_ACCOUNT_ID") or "").strip()
@@ -115,11 +272,14 @@ def _flux(prompt, seed, attempt=0):
         raise ValueError("FLUX returned no image file")
     return Image.open(image_data).convert("RGB")
 
+def _image_providers():
+    return (("deepai", _deepai, 1), ("cloudflare", _cloudflare, 3),
+            ("flux", _flux, 1), ("pollinations", _pollinations, 3))
+
 def generate_thumbnail(prompt, seed, out):
-    """Generate one cover, preferring Cloudflare FLUX then the existing providers."""
+    """Generate one cover, preferring DeepAI then the existing providers."""
     full = f"{prompt}. Style: {S.STYLE}"
-    providers = (("cloudflare", _cloudflare, 3), ("flux", _flux, 1), ("pollinations", _pollinations, 3))
-    for name, fn, attempts in providers:
+    for name, fn, attempts in _image_providers():
         for attempt in range(attempts):
             try:
                 im = fn(full, seed, attempt=attempt)
@@ -153,10 +313,9 @@ def reuse_nearest_generated_images(comps, generated_indices):
     return reused
 
 def generate(prompt, seed, out):
-    """Make one illustration, preferring Cloudflare FLUX then the existing providers."""
+    """Make one illustration, preferring DeepAI then the existing providers."""
     full = f"{prompt}. Style: {S.STYLE}"
-    providers = (("cloudflare", _cloudflare, 3), ("flux", _flux, 1), ("pollinations", _pollinations, 3))
-    for name, fn, attempts in providers:
+    for name, fn, attempts in _image_providers():
         for attempt in range(attempts):
             try:
                 im = fn(full, seed, attempt=attempt)

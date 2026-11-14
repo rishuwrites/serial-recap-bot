@@ -13,7 +13,7 @@ on:
         description: "Which show to process"
         type: choice
         default: all
-        options: [all, kaisi, bhabhi, sohni, rimjhim, mannsundar, atisundar, patibrahma, ishq]
+        options: [all, kaisi, bhabhi, sohni, rimjhim, mannsundar, atisundar, patibrahma, ishq, saanche]
       video_id:
         description: "Optional: a specific Dangal TV episode video ID (e.g. JNdlYnNneKE) instead of the newest one"
         type: string
@@ -48,7 +48,7 @@ jobs:
       fail-fast: false
       max-parallel: 3
       matrix:
-        show: [kaisi, bhabhi, sohni, rimjhim, mannsundar, atisundar, patibrahma, ishq]
+        show: [kaisi, bhabhi, sohni, rimjhim, mannsundar, atisundar, patibrahma, ishq, saanche]
     env:
       PYTHONUNBUFFERED: "1"
     steps:
@@ -76,6 +76,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y ffmpeg fonts-noto-core libraqm0 libfribidi0 libharfbuzz0b
           pip install -r requirements.txt
+          python -m playwright install --with-deps chromium
 
       - name: Make recap (with automatic retry on failure)
         if: steps.chk.outputs.run == 'true'

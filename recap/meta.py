@@ -143,20 +143,28 @@ def make_description(show, ep, date_, ep_url, hook, starts, prediction, kws, tag
     source_date = source_date or date_
     hashtags = [hashtag(show["en"]), hashtag(show["match"]), "#DangalTV", "#DangalOriginals",
                 "#HindiSerial", "#SerialRecap", "#TodayEpisode"]
-    d = f"{show['en']} | {source_date} | Episode {source_ep} Recap | Dangal TV\n"
-    d += f"{show['en']} | {show['hi']} | Episode {ep} Story + Prediction | {date_}\n"
-    d += f"\n{show['hi']} के आधिकारिक एपिसोड {source_ep} पर आधारित रिकैप।\n"
-    d += " ".join(dict.fromkeys(hashtags)) + "\n"
-    d += "खोज-शब्द / Search terms:\n"
-    d += "General: " + ", ".join(search_terms["general"]) + "\n"
-    d += "+1 day / episode: " + ", ".join(search_terms[1]) + "\n"
-    d += "+2 days / episode: " + ", ".join(search_terms[2]) + "\n\n"
-    d += f"{hook}\n\n📺 {show['en']} ({show['hi']}) | लक्ष्य: {date_} | अगले एपिसोड {ep} का अनुमान।\n"
-    d += f"यह रिकैप {source_date or 'दो दिन पहले'} के एपिसोड {source_ep} पर आधारित है; आगे की बातें अनुमान हैं, पुष्टि किए हुए स्पॉइलर नहीं।\n"
+    header = f"{show['en']} | {source_date} | Episode {source_ep} Recap | Dangal TV\n"
+    header += f"{show['en']} | {show['hi']} | Episode {ep} Story + Prediction | {date_}\n"
+    header += f"\n{show['hi']} के आधिकारिक एपिसोड {source_ep} पर आधारित रिकैप।\n"
+    header += " ".join(dict.fromkeys(hashtags)) + "\n"
+    def build_search_section():
+        return (
+            "खोज-शब्द / Search terms:\n"
+            + "General: " + ", ".join(search_terms["general"]) + "\n"
+            + "+1 day / episode: " + ", ".join(search_terms[1]) + "\n"
+            + "+2 days / episode: " + ", ".join(search_terms[2]) + "\n\n"
+        )
+    body = f"{hook}\n\n📺 {show['en']} ({show['hi']}) | लक्ष्य: {date_} | अगले एपिसोड {ep} का अनुमान।\n"
+    body += f"यह रिकैप {source_date or 'दो दिन पहले'} के एपिसोड {source_ep} पर आधारित है; आगे की बातें अनुमान हैं, पुष्टि किए हुए स्पॉइलर नहीं।\n"
     ch = chapters(starts)
-    if ch: d += f"\nअध्याय:\n{ch}\n"
-    d += f"\n⚠ एपिसोड {ep} में क्या हो सकता है - सिर्फ़ अनुमान, असली एपिसोड नहीं:\n" + "\n".join(prediction) + "\n"
-    d += f"\n▶ आधिकारिक पूरा एपिसोड यहाँ देखें: {ep_url}\n"
-    d += ("\nडिस्क्लेमर: यह एक फ़ैन-निर्मित रिकैप है। शो के सभी अधिकार मूल निर्माताओं/चैनल के पास हैं। इसमें शो का कोई वीडियो, ऑडियो या संगीत इस्तेमाल नहीं हुआ। "
-          "चित्र AI से बनाए गए हैं और किसी कलाकार की छवि नहीं हैं; आवाज़ AI की है।\n")
+    if ch: body += f"\nअध्याय:\n{ch}\n"
+    body += f"\n⚠ एपिसोड {ep} में क्या हो सकता है - सिर्फ़ अनुमान, असली एपिसोड नहीं:\n" + "\n".join(prediction) + "\n"
+    body += f"\n▶ आधिकारिक पूरा एपिसोड यहाँ देखें: {ep_url}\n"
+    body += ("\nडिस्क्लेमर: यह एक फ़ैन-निर्मित रिकैप है। शो के सभी अधिकार मूल निर्माताओं/चैनल के पास हैं। इसमें शो का कोई वीडियो, ऑडियो या संगीत इस्तेमाल नहीं हुआ। "
+             "चित्र AI से बनाए गए हैं और किसी कलाकार की छवि नहीं हैं; आवाज़ AI की है।\n")
+    d = header + build_search_section() + body
+    for group in (2, 1, "general"):
+        while len(d) > 4900 and search_terms[group]:
+            search_terms[group].pop()
+            d = header + build_search_section() + body
     return d[:4900]

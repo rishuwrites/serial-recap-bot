@@ -12,7 +12,7 @@
  * 3. Fill in `GITHUB_OWNER`, `GITHUB_REPO`, and `GITHUB_PAT` (a GitHub Personal Access Token with `repo` and `workflow` scope).
  * 4. In the top toolbar, select `setupTriggers` from the function dropdown and click "Run" once.
  *    - It will automatically create:
- *      a) A 12:00 AM IST midnight trigger (`triggerNightly12AM`) to start all 8 shows.
+ *      a) A 12:00 AM IST midnight trigger (`triggerNightly12AM`) to start all 9 shows.
  *      b) A 2-hour watchdog trigger (`watchdogCheckAndRerun`) that reads back GitHub workflow run status & job logs
  *         and automatically re-runs any failed show job.
  */
@@ -22,7 +22,7 @@ const GITHUB_REPO  = "serial-recap-bot";
 const GITHUB_PAT   = "YOUR_GITHUB_PAT_TOKEN";
 const WORKFLOW_FILE = "recap.yml";
 const BRANCH        = "main";
-const SHOW_KEYS     = ["kaisi", "bhabhi", "sohni", "rimjhim", "mannsundar", "atisundar", "patibrahma", "ishq"];
+const SHOW_KEYS     = ["kaisi", "bhabhi", "sohni", "rimjhim", "mannsundar", "atisundar", "patibrahma", "ishq", "saanche"];
 
 /**
  * Run this function ONCE in Google Apps Script editor to install the exact 12:00 AM IST trigger
@@ -51,7 +51,7 @@ function setupTriggers() {
 }
 
 /**
- * Fires at 12:00 AM IST every night to generate & schedule all 8 videos for 9, 10, 11, 12, 1, 2, 3, 4 AM-PM IST.
+ * Fires at 12:00 AM IST every night to generate & schedule all 9 videos, including Saanche at 12:30 PM IST.
  */
 function triggerNightly12AM() {
   dispatchWorkflow("all");

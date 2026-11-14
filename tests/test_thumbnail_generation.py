@@ -112,10 +112,84 @@ class ThumbnailGenerationTests(unittest.TestCase):
         self.assertEqual(client.predict.call_args.kwargs["width"], 1280)
         self.assertEqual(client.predict.call_args.kwargs["height"], 720)
 
+    def test_deepai_is_first_provider_for_scene_and_thumbnail_images(self):
+        image = Image.new("RGB", (640, 640), color="purple")
+        providers = ("_cloudflare", "_flux", "_pollinations")
+        for generator in (images.generate, images.generate_thumbnail):
+            with self.subTest(generator=generator.__name__), tempfile.TemporaryDirectory() as folder:
+                output = Path(folder) / "image.jpg"
+                with mock.patch.object(images, "_deepai", return_value=image) as deepai, \
+                        mock.patch.multiple(
+                            images,
+                            **{name: mock.DEFAULT for name in providers},
+                        ) as fallbacks:
+                    self.assertTrue(generator("test image", 1, str(output)))
+
+                deepai.assert_called_once()
+                for fallback in fallbacks.values():
+                    fallback.assert_not_called()
+                self.assertTrue(output.is_file())
+
+    def test_deepai_block_falls_back_to_cloudflare(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "image.jpg"
+            with mock.patch.object(
+                images, "_deepai", side_effect=images.DeepAIUnavailableError("CAPTCHA detected"),
+            ), mock.patch.object(images, "_cloudflare", return_value=Image.new("RGB", (640, 640))) as cloudflare:
+                self.assertTrue(images.generate("test image", 1, str(output)))
+            self.assertTrue(output.is_file())
+        cloudflare.assert_called_once()
+
+    def test_captcha_and_rate_limit_errors_are_not_retried(self):
+        for message in ("CAPTCHA detected", "verify you are human", "rate limit"):
+            with self.subTest(message=message):
+                self.assertFalse(images._retryable_image_error(RuntimeError(message)))
+
+    def test_deepai_generation_uses_browser_controls_without_api_calls(self):
+        image_url = "https://api.deepai.org/job-view-file/example/output.jpg"
+        page = mock.Mock()
+        textarea = mock.Mock()
+        submit = mock.Mock()
+        body = mock.Mock()
+        body.inner_text.return_value = "Image Generator"
+        main_images = mock.Mock()
+        main_images.evaluate_all.side_effect = [[], [image_url]]
+        page.locator.side_effect = lambda selector: {
+            "body": body,
+            "main img": main_images,
+            "#generate-textarea": textarea,
+            "#modelSubmitButton": submit,
+        }[selector]
+        download = mock.Mock()
+        download.ok = True
+        download.body.return_value = jpeg_bytes((640, 640))
+        page.request.get.return_value = download
+        with mock.patch.object(images, "_deepai_page_for_generation", return_value=page), \
+                mock.patch.object(images, "_deepai_last_generation", 0), \
+                mock.patch.object(images, "_deepai_disabled_reason", None), \
+                mock.patch.object(images.requests, "post") as api_post:
+            image = images._deepai("example prompt", 42)
+
+        self.assertEqual(image.size, (640, 640))
+        textarea.fill.assert_called_once_with("example prompt")
+        submit.click.assert_called_once()
+        page.request.get.assert_called_once_with(image_url, timeout=60_000)
+        api_post.assert_not_called()
+
+    def test_deepai_captcha_detection_stops_without_retrying(self):
+        page = mock.Mock()
+        page.locator.return_value.inner_text.return_value = "Verify you are human"
+        with mock.patch.object(images, "_deepai_disabled_reason", None):
+            with self.assertRaises(images.DeepAIUnavailableError) as error:
+                images._check_deepai_restriction(page)
+
+        self.assertFalse(images._retryable_image_error(error.exception))
+
     def test_thumbnail_generation_falls_back_when_flux_fails(self):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "thumbnail.jpg"
-            with mock.patch.object(images, "_cloudflare", side_effect=RuntimeError("Cloudflare unavailable")), \
+            with mock.patch.object(images, "_deepai", return_value=None), \
+                    mock.patch.object(images, "_cloudflare", side_effect=RuntimeError("Cloudflare unavailable")), \
                     mock.patch.object(images, "_flux", return_value=Image.new("RGB", (1280, 720))), \
                     mock.patch.object(images.time, "sleep"):
                 succeeded = images.generate_thumbnail("cover prompt", 42, str(output))
@@ -142,16 +216,33 @@ class ThumbnailGenerationTests(unittest.TestCase):
         self.assertEqual(post.call_args.kwargs["headers"]["Authorization"], "Bearer test-token")
         self.assertEqual(post.call_args.kwargs["json"]["steps"], 4)
 
-    def test_scene_image_generation_uses_cloudflare_before_fallbacks(self):
+    def test_thumbnail_generation_uses_deepai_before_fallbacks(self):
+        with tempfile.TemporaryDirectory() as folder:
+            output = Path(folder) / "thumbnail.jpg"
+            with mock.patch.object(images, "_deepai", return_value=Image.new("RGB", (1280, 720))) as deepai, \
+                    mock.patch.object(images, "_cloudflare") as cloudflare, \
+                    mock.patch.object(images, "_flux") as flux, \
+                    mock.patch.object(images, "_pollinations") as pollinations:
+                succeeded = images.generate_thumbnail("cover prompt", 42, str(output))
+
+        self.assertTrue(succeeded)
+        deepai.assert_called_once()
+        cloudflare.assert_not_called()
+        flux.assert_not_called()
+        pollinations.assert_not_called()
+
+    def test_scene_image_generation_uses_deepai_before_fallbacks(self):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "scene.jpg"
-            with mock.patch.object(images, "_cloudflare", return_value=Image.new("RGB", (1280, 720))) as cloudflare, \
+            with mock.patch.object(images, "_deepai", return_value=Image.new("RGB", (1280, 720))) as deepai, \
+                    mock.patch.object(images, "_cloudflare") as cloudflare, \
                     mock.patch.object(images, "_flux") as flux, \
                     mock.patch.object(images, "_pollinations") as pollinations:
                 succeeded = images.generate("scene prompt", 42, str(output))
 
         self.assertTrue(succeeded)
-        cloudflare.assert_called_once()
+        deepai.assert_called_once()
+        cloudflare.assert_not_called()
         flux.assert_not_called()
         pollinations.assert_not_called()
 
@@ -159,6 +250,8 @@ class ThumbnailGenerationTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "scene.jpg"
             with mock.patch.object(
+                images, "_deepai", return_value=None,
+            ), mock.patch.object(
                 images, "_cloudflare",
                 side_effect=RuntimeError("Cloudflare daily quota exhausted"),
             ) as cloudflare, \
@@ -196,7 +289,8 @@ class ThumbnailGenerationTests(unittest.TestCase):
         error = images.requests.HTTPError("402 Payment Required", response=response)
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "scene.jpg"
-            with mock.patch.object(images, "_flux", side_effect=RuntimeError("ZeroGPU quota")), \
+            with mock.patch.object(images, "_deepai", return_value=None), \
+                    mock.patch.object(images, "_flux", side_effect=RuntimeError("ZeroGPU quota")), \
                     mock.patch.object(images, "_cloudflare", return_value=None), \
                     mock.patch.object(images, "_pollinations", side_effect=error) as pollinations, \
                     mock.patch.object(images.time, "sleep"):
@@ -211,7 +305,8 @@ class ThumbnailGenerationTests(unittest.TestCase):
         error = images.requests.HTTPError("503 Service Unavailable", response=response)
         with tempfile.TemporaryDirectory() as folder:
             output = Path(folder) / "scene.jpg"
-            with mock.patch.object(images, "_flux", side_effect=RuntimeError("space unavailable")), \
+            with mock.patch.object(images, "_deepai", return_value=None), \
+                    mock.patch.object(images, "_flux", side_effect=RuntimeError("space unavailable")), \
                     mock.patch.object(images, "_cloudflare", return_value=None), \
                     mock.patch.object(
                         images, "_pollinations",

@@ -6,10 +6,24 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "recap"))
 
 import config
+import feed
 import meta
 
 
 class VideoDescriptionTests(unittest.TestCase):
+    def test_saanche_darbar_episode_title_matches_the_feed(self):
+        title = "Saanche Darbar Ki Jai Dhyanu Bhagat Ki Amar Kahani | Full Episode 1"
+
+        self.assertTrue(feed._matches_show(title, "saanche"))
+        self.assertTrue(feed._is_full_episode(title))
+
+    def test_saanche_darbar_uses_requested_ist_slot(self):
+        show = config.SHOWS["saanche"]
+
+        self.assertEqual(show["en"], "Saanche Darbar Ki Jai Dhyanu Bhagat Ki Amar Kahani")
+        self.assertEqual(show["slot"], (12, 30))
+        self.assertIn("saanche darbar ki jai dhyanu bhagat ki amar kahani", show["match"])
+
     def test_description_includes_dynamic_show_episode_and_date(self):
         show = config.SHOWS["rimjhim"]
         description = meta.make_description(

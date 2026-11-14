@@ -23,7 +23,7 @@ OUTRO_LINE = "अगर आपको ऐसी डेली अपडेट्�
 BASE_TAGS = ["serial summary", "serial story in hindi", "today episode", "full episode summary", "episode summary in hindi",
              "hindi serial", "hindi tv serial", "dangal tv serial", "dangal tv", "आज का एपिसोड", "आज की कहानी", "सीरियल की कहानी",
              "serial update", "tv serial recap", "episode review", "kal ka episode", "next episode prediction", "serial twist"]
-# match = lowercase text that must appear in the video title; slot = IST publish time (9 AM, 10 AM, 11 AM, 12 PM, 1 PM, 2 PM, 3 PM, 4 PM IST)
+# match = lowercase text that must appear in the video title; slot = IST publish time
 SHOWS = {
     "kaisi":      {"match": "kaisi teri dillagi",     "en": "Kaisi Teri Dillagi",      "hi": "कैसी तेरी दिल्लगी",       "slot": (9, 0),  "alt": ["kaisi teri dilagi", "kaisi teri dillagi serial"]},
     "bhabhi":     {"match": "hamari bhabhi number 1", "en": "Hamari Bhabhi Number 1",  "hi": "हमारी भाभी नंबर 1",      "slot": (10, 0), "alt": ["hamari bhabhi no 1", "hamari bhabhi number one"]},
@@ -33,6 +33,13 @@ SHOWS = {
     "atisundar":  {"match": "mann atisundar",         "en": "Mann Atisundar",          "hi": "मन अतिसुंदर",            "slot": (14, 0), "alt": ["man atisundar", "mann atisundar serial", "mann ati sundar"]},
     "patibrahma": {"match": "pati brahmachari",       "en": "Pati Brahmachari",        "hi": "पति ब्रह्मचारी",          "slot": (15, 0), "alt": ["pati brahmachari serial", "pati bramhachari"]},
     "ishq":       {"match": "ishq junooni",           "en": "Ishq Junooni",            "hi": "इश्क़ जुनूनी",            "slot": (16, 0), "alt": ["ishq junooni serial", "ishq jununi"]},
+    "saanche": {
+        "match": "saanche darbar ki jai dhyanu bhagat ki amar kahani",
+        "en": "Saanche Darbar Ki Jai Dhyanu Bhagat Ki Amar Kahani",
+        "hi": "सांचे दरबार की जय ध्यानु भगत की अमर कहानी",
+        "slot": (12, 30),
+        "alt": ["sanche darbar ki jai dhyanu bhagat ki amar kahani", "saanche darbaar ki jai dhyanu bhagat ki amar kahani"],
+    },
 }
 HI_MONTHS = ["जनवरी", "फ़रवरी", "मार्च", "अप्रैल", "मई", "जून", "जुलाई", "अगस्त", "सितंबर", "अक्टूबर", "नवंबर", "दिसंबर"]
 EMOTION_COLORS = {"tense": (200, 90, 0), "sad": (40, 90, 170), "happy": (30, 150, 70), "angry": (190, 20, 30),

@@ -1,7 +1,7 @@
 # Serial recap bot (Dangal TV serials -> 2-3 min "motion comic" recaps), standalone repo
 
 ## Daily Publish Schedule (9:00 AM – 4:00 PM IST)
-The bot runs at **12:00 AM IST (Midnight)** via an external cron trigger and schedules the 8 daily recap videos on YouTube at hourly slots from **9:00 AM to 4:00 PM IST**:
+The bot runs at **12:00 AM IST (Midnight)** via an external cron trigger and schedules the daily recap videos on YouTube at the listed IST slots:
 
 | Show Key | Serial Name | Scheduled YouTube Publish Time (IST) |
 | :--- | :--- | :--- |
@@ -13,6 +13,7 @@ The bot runs at **12:00 AM IST (Midnight)** via an external cron trigger and sch
 | `atisundar` | Mann Atisundar (मन अतिसुंदर) | **02:00 PM IST** |
 | `patibrahma` | Pati Brahmachari (पति ब्रह्मचारी) | **03:00 PM IST** |
 | `ishq` | Ishq Junooni (इश्क़ जुनूनी) | **04:00 PM IST** |
+| `saanche` | Saanche Darbar Ki Jai Dhyanu Bhagat Ki Amar Kahani (सांचे दरबार की जय ध्यानु भगत की अमर कहानी) | **12:30 PM IST** |
 
 Each uploaded video gets a generated description with the show name, source and target episode/date, show-specific Hindi/English search phrases and hashtags, the recap/prediction, and the official source episode link. Search terms are generated for the next-day (+1) and two-day-ahead (+2) episode/date only, not for the source day. The description identifies the upload as a recap, not as the full episode.
 
@@ -62,9 +63,9 @@ The Reel publisher validates the API's current media constraints before making r
 
 ### Episode-aware thumbnail artwork
 
-For each episode, the bot asks Gemini to describe the source video's public YouTube thumbnail and uses only its broad composition and color balance as guidance. It generates fresh episode art with Cloudflare Workers AI FLUX.1-schnell first, then falls back to the Hugging Face FLUX Space and Pollinations. The bot applies its existing Hindi title, show, and episode overlays to the 1280 × 720 thumbnail. If generation for a scene fails but another scene has generated art, it reuses the nearest available illustration; title cards are used only when all providers fail for the entire episode.
+For each episode, the bot asks Gemini to describe the source video's public YouTube thumbnail and uses only its broad composition and color balance as guidance. It generates fresh episode art from DeepAI's public image-generator page first using Playwright and Chromium, then falls back to Cloudflare Workers AI FLUX.1-schnell, the Hugging Face FLUX Space, and Pollinations. The bot applies its existing Hindi title, show, and episode overlays to the 1280 × 720 thumbnail. If generation for a scene fails but another scene has generated art, it reuses the nearest available illustration; title cards are used only when all providers fail for the entire episode.
 
-`CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` are read from GitHub Actions secrets (legacy `CF_ACCOUNT_ID` and `CF_API_TOKEN` names are also accepted). Cloudflare is the primary provider via Workers AI FLUX.1-schnell; generation falls back to the configured/default Hugging Face FLUX Space and then Pollinations. `gradio_client` is installed from `requirements.txt`. `HF_FLUX_SPACE` optionally overrides the public Gradio Space URL; no Hugging Face token is required for the default public Space. A Cloudflare quota/credit limit or HTTP 402 skips to the next provider; transient errors such as HTTP 503 are retried.
+DeepAI generation uses the page's normal prompt and Generate controls; it does not call the DeepAI API or require an API key. The workflow installs Chromium for Playwright. If DeepAI is unavailable, blocked, or rate-limited, it stops DeepAI attempts and continues with the remaining providers without bypassing sign-in, CAPTCHA, or rate-limit protections. `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN` are read from GitHub Actions secrets (legacy `CF_ACCOUNT_ID` and `CF_API_TOKEN` names are also accepted). Cloudflare uses Workers AI FLUX.1-schnell. `gradio_client` is installed from `requirements.txt`. `HF_FLUX_SPACE` optionally overrides the public Gradio Space URL; no Hugging Face token is required for the default public Space. Quota/credit limits skip to the next provider; transient errors such as HTTP 503 are retried.
 
 ### Software and local configuration
 
@@ -88,9 +89,9 @@ Use `.env.example` as a list of supported environment variables. The application
 
 | Name | GitHub storage | Purpose |
 | --- | --- | --- |
-| `CLOUDFLARE_ACCOUNT_ID` | Secret | Cloudflare Workers AI account for primary scene and thumbnail generation |
+| `CLOUDFLARE_ACCOUNT_ID` | Secret | Cloudflare Workers AI account for fallback scene and thumbnail generation |
 | `CLOUDFLARE_API_TOKEN` | Secret | Cloudflare Workers AI API token for image generation |
-| `HF_FLUX_SPACE` | Optional repository variable | First fallback image provider when Cloudflare is unavailable |
+| `HF_FLUX_SPACE` | Optional repository variable | FLUX fallback after DeepAI and Cloudflare |
 | `FACEBOOK_ENABLED` | Repository variable; default `false` | Explicitly opt in to Facebook publishing |
 | `FACEBOOK_PAGE_ID` | Repository variable | Destination Facebook Page |
 | `FACEBOOK_PAGE_ACCESS_TOKEN` | Secret | Publishes the video to the Page |
