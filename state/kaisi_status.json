@@ -1,12 +1,12 @@
 {
   "show": "kaisi",
-  "status": "success",
-  "date_ist": "2026-11-22",
-  "timestamp_ist": "2026-11-22 07:27:36 IST",
-  "source_video_id": "bOzyQXq8824",
-  "source_episode": "120",
-  "target_episode": "122",
-  "youtube_video_id": "T8x1bqGlx14",
+  "status": "no_new_episode",
+  "date_ist": "2026-11-23",
+  "timestamp_ist": "2026-11-23 00:04:45 IST",
+  "source_video_id": "",
+  "source_episode": "",
+  "target_episode": "",
+  "youtube_video_id": "",
   "error": "",
-  "log_tail": ""
+  "log_tail": "== Kaisi Teri Dillagi | slot=09:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
 }
