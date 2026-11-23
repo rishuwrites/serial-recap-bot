@@ -1,12 +1,12 @@
 {
   "show": "patibrahma",
-  "status": "no_new_episode",
-  "date_ist": "2026-11-23",
-  "timestamp_ist": "2026-11-23 00:12:07 IST",
-  "source_video_id": "",
-  "source_episode": "",
-  "target_episode": "",
+  "status": "failed",
+  "date_ist": "2026-11-24",
+  "timestamp_ist": "2026-11-24 01:21:07 IST",
+  "source_video_id": "C3H0NoSurY0",
+  "source_episode": "475",
+  "target_episode": "477",
   "youtube_video_id": "",
-  "error": "",
-  "log_tail": "== Pati Brahmachari | slot=15:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
+  "error": "Gemini could not analyse the video. Last error: gemini-3.5-flash-lite: 503 {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later",
+  "log_tail": "/7 Gemini watches the episode\n  failed -> gemini-flash-latest 503\n  failed -> gemini-3.8-flash 429\n  failed -> gemini-3.7-flash 503\n  failed -> gemini-3.6-flash 503\n  failed -> gemini-3.5-flash 503\n  failed -> gemini-2.5-flash 404\n  failed -> gemini-flash-lite-latest 503\n  failed -> gemini-3.5-flash-lite 503\n  all models busy, retrying in 30s\n  failed -> gemini-flash-latest 503\n  failed -> gemini-3.8-flash 429\n  failed -> gemini-3.7-flash 429\n  failed -> gemini-3.6-flash 429\n  failed -> gemini-3.5-flash 503\n  failed -> gemini-2.5-flash 404\n  failed -> gemini-flash-lite-latest 503\n  failed -> gemini-3.5-flash-lite 503\n  all models busy, retrying in 60s\n  failed -> gemini-flash-latest 429\n  failed -> gemini-3.8-flash 429\n  failed -> gemini-3.7-flash 429\n  failed -> gemini-3.6-flash 429\n  failed -> gemini-3.5-flash 503\n  failed -> gemini-2.5-flash 404\n  failed -> gemini-flash-lite-latest 503\n  failed -> gemini-3.5-flash-lite 503\n  all models busy, retrying in 120s\n  failed -> gemini-flash-latest 429\n  failed -> gemini-3.8-flash 503\n  failed -> gemini-3.7-flash 429\n  failed -> gemini-3.6-flash 429\n  failed -> gemini-3.5-flash 429\n  failed -> gemini-2.5-flash 404\n  failed -> gemini-flash-lite-latest 503\n  failed -> gemini-3.5-flash-lite 503\nFAILED: Gemini could not analyse the video. Last error: gemini-3.5-flash-lite: 503 {\n  \"error\": {\n    \"code\": 503,\n    \"message\": \"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later\n"
 }
