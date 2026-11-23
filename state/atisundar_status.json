@@ -1,12 +1,12 @@
 {
   "show": "atisundar",
-  "status": "failed",
+  "status": "success",
   "date_ist": "2026-11-23",
-  "timestamp_ist": "2026-11-23 00:12:09 IST",
+  "timestamp_ist": "2026-11-23 08:12:06 IST",
   "source_video_id": "yLeEXJ87lIo",
   "source_episode": "1217",
   "target_episode": "1219",
-  "youtube_video_id": "",
-  "error": "AttributeError: 'list' object has no attribute 'get'",
-  "log_tail": "== Mann Atisundar | slot=14:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   Mann Atisundar | 22 Nov 2026 | Full Episode 1217 | Full HD #Newepisode | Dangal TV | https://www.youtube.com/watch?v=yLeEXJ87lIo\n  source episode/date: 1217 / 22 Nov 2026; two-day target: 1219 / 24 Nov 2026\n2/7 Gemini watches the episode\n  failed -> gemini-flash-latest 503\n  failed -> gemini-3.8-flash 429\n  failed -> gemini-3.7-flash 503\n  analysed with gemini-3.6-flash\n  source thumbnail described with gemini-3.6-flash\nUNHANDLED ERROR:\n Traceback (most recent call last):\n  File \"/home/runner/work/serial-recap-bot/serial-recap-bot/recap/main.py\", line 100, in <module>\n    scenes = [s for s in data.get(\"scenes\", []) if s.get(\"narration\")]\n                         ^^^^^^^^\nAttributeError: 'list' object has no attribute 'get'\n\n"
+  "youtube_video_id": "fAMTsyv6t88",
+  "error": "",
+  "log_tail": ""
 }
