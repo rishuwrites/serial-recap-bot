@@ -320,5 +320,19 @@
     },
     "source_episode": "402",
     "updated_at": "2026-11-22T02:07:32+00:00"
+  },
+  "CdQz_flMM5A": {
+    "source_video_id": "CdQz_flMM5A",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-23T02:44:47+00:00",
+        "media_id": "iIvxH7c0JVA",
+        "error": ""
+      }
+    },
+    "source_episode": "403",
+    "updated_at": "2026-11-23T02:44:47+00:00"
   }
 }
