@@ -74,13 +74,13 @@ function watchdogCheckAndRerun() {
     }
 
     const today = Utilities.formatDate(now, "Asia/Kolkata", "yyyy-MM-dd");
-    const runsUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/runs?branch=${BRANCH}&event=workflow_dispatch&per_page=100`;
+    const runsUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/actions/workflows/${WORKFLOW_FILE}/runs?branch=${BRANCH}&per_page=100`;
     const runs = fetchGitHubJson(runsUrl).workflow_runs || [];
     const todayRuns = runs.filter(run =>
       Utilities.formatDate(new Date(run.created_at), "Asia/Kolkata", "yyyy-MM-dd") === today
     );
-    if (todayRuns.some(run => run.status === "queued" || run.status === "in_progress")) {
-      Logger.log("A workflow run for today is active; waiting for it to finish.");
+    if (runs.some(run => run.status === "queued" || run.status === "in_progress")) {
+      Logger.log("A workflow run is active; waiting for it to finish.");
       return;
     }
 
