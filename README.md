@@ -24,8 +24,8 @@ GitHub's internal `schedule:` cron frequently delays runs by 30–90 minutes or 
 
 1. **Option A — Google Apps Script (`scheduler/google_apps_script.gs`, Recommended & 100% Free)**:
    - Open [script.google.com](https://script.google.com), create a project, and paste `scheduler/google_apps_script.gs`.
-   - Set `GITHUB_OWNER`, `GITHUB_REPO`, and `GITHUB_PAT` (a GitHub Personal Access Token with `repo` and `workflow` permissions).
-   - Run `setupTriggers()` once. It installs an exact **12:00 AM IST (`Asia/Kolkata`)** daily trigger plus a **2-hour Watchdog Log-Inspector** that checks GitHub run logs and automatically re-triggers any failed show.
+   - Add `GITHUB_PAT` under Apps Script **Project Settings → Script Properties** (a token with repository read and workflow permissions; do not hardcode it).
+   - Run `setupTriggers()` once. It installs an exact **12:00 AM IST (`Asia/Kolkata`)** daily trigger plus a **two-hour watchdog**. The watchdog skips successful shows, reruns failed jobs only, and dispatches a single show when its current-day result is missing.
 2. **Option B — cron-job.org (100% Free Web Cron)**:
    - Create a free job at [cron-job.org](https://cron-job.org) set to **00:00 Asia/Kolkata (12:00 AM IST)**.
    - Method: `POST` to `https://api.github.com/repos/<OWNER>/<REPO>/actions/workflows/recap.yml/dispatches`
@@ -36,7 +36,7 @@ GitHub's internal `schedule:` cron frequently delays runs by 30–90 minutes or 
 1. **In-Job Log Capture & Auto-Retry (`recap.yml` & `main.py`)**:
    - Every show job streams its logs into `state/<show>_status.json`. If Attempt 1 fails, it cleans up temp files, waits 45 seconds, and retries once automatically inside the same run.
 2. **Google Apps Script Watchdog (`scheduler/google_apps_script.gs`)**:
-   - The only scheduled watchdog checks workflow results every two hours and dispatches a targeted rerun for a failed show.
+   - The watchdog checks current-day show state every two hours, skips successful shows, reruns only failed jobs, and dispatches one missing show at a time.
 3. **Triple Anti-Duplicate Lock (Never Uploads an Episode Twice)**:
    - **Video ID + Episode Number State (`state/<show>.json`)**: Stores both the source YouTube video ID (`JNdlYnNneKE`) and the episode number (`ep:452`, `target_ep:453`). Even if Dangal TV re-uploads the same episode with a new video ID, it is never processed twice.
    - **Live YouTube Channel Pre-Check (`youtube.already_uploaded()`)**: Before generating a video AND again right before uploading, the bot queries your YouTube channel's uploads list (including private/scheduled videos). If an episode is already uploaded or scheduled on your channel, it syncs `state/<show>.json` and skips immediately.
