@@ -334,5 +334,19 @@
     },
     "source_episode": "403",
     "updated_at": "2026-11-23T02:44:47+00:00"
+  },
+  "YYV8RDIAVxw": {
+    "source_video_id": "YYV8RDIAVxw",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-24T01:53:43+00:00",
+        "media_id": "D-zuVIoHVis",
+        "error": ""
+      }
+    },
+    "source_episode": "404",
+    "updated_at": "2026-11-24T01:53:43+00:00"
   }
 }
