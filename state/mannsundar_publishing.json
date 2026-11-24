@@ -348,5 +348,19 @@
     },
     "source_episode": "1796",
     "updated_at": "2026-11-23T02:46:36+00:00"
+  },
+  "KOUi973GmOE": {
+    "source_video_id": "KOUi973GmOE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-24T01:33:01+00:00",
+        "media_id": "dIMg0IGSL18",
+        "error": ""
+      }
+    },
+    "source_episode": "1797",
+    "updated_at": "2026-11-24T01:33:01+00:00"
   }
 }
