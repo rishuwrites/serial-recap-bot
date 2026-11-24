@@ -348,5 +348,19 @@
     },
     "source_episode": "73",
     "updated_at": "2026-11-24T01:21:22+00:00"
+  },
+  "PAgCT_R03Tk": {
+    "source_video_id": "PAgCT_R03Tk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-24T18:54:05+00:00",
+        "media_id": "aRKtWd9UpLI",
+        "error": ""
+      }
+    },
+    "source_episode": "74",
+    "updated_at": "2026-11-24T18:54:05+00:00"
   }
 }
