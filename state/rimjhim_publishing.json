@@ -348,5 +348,19 @@
     },
     "source_episode": "404",
     "updated_at": "2026-11-24T01:53:43+00:00"
+  },
+  "-TEM_Y4GD2g": {
+    "source_video_id": "-TEM_Y4GD2g",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-25T18:55:58+00:00",
+        "media_id": "VMxp2leApaU",
+        "error": ""
+      }
+    },
+    "source_episode": "406",
+    "updated_at": "2026-11-25T18:55:58+00:00"
   }
 }
