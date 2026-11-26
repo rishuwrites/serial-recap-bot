@@ -1,12 +1,12 @@
 {
   "show": "patibrahma",
-  "status": "success",
+  "status": "no_new_episode",
   "date_ist": "2026-11-26",
-  "timestamp_ist": "2026-11-26 08:23:55 IST",
-  "source_video_id": "WP3uJceZPBg",
-  "source_episode": "477",
-  "target_episode": "479",
-  "youtube_video_id": "ck5XfMqYrZM",
+  "timestamp_ist": "2026-11-26 08:55:39 IST",
+  "source_video_id": "",
+  "source_episode": "",
+  "target_episode": "",
+  "youtube_video_id": "",
   "error": "",
-  "log_tail": ""
+  "log_tail": "== Pati Brahmachari | slot=15:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
 }
