@@ -1,12 +1,12 @@
 {
   "show": "rimjhim",
-  "status": "success",
+  "status": "no_new_episode",
   "date_ist": "2026-11-26",
-  "timestamp_ist": "2026-11-26 00:25:58 IST",
-  "source_video_id": "-TEM_Y4GD2g",
-  "source_episode": "406",
-  "target_episode": "408",
-  "youtube_video_id": "VMxp2leApaU",
+  "timestamp_ist": "2026-11-26 08:10:28 IST",
+  "source_video_id": "",
+  "source_episode": "",
+  "target_episode": "",
+  "youtube_video_id": "",
   "error": "",
-  "log_tail": ""
+  "log_tail": "== Rimjhim Choti Umar Bada Safar | slot=12:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
 }
