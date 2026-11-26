@@ -334,5 +334,19 @@
     },
     "source_episode": "474",
     "updated_at": "2026-11-22T03:00:10+00:00"
+  },
+  "WP3uJceZPBg": {
+    "source_video_id": "WP3uJceZPBg",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-26T02:53:55+00:00",
+        "media_id": "ck5XfMqYrZM",
+        "error": ""
+      }
+    },
+    "source_episode": "477",
+    "updated_at": "2026-11-26T02:53:55+00:00"
   }
 }
