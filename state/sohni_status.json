@@ -1,12 +1,12 @@
 {
   "show": "sohni",
-  "status": "no_new_episode",
-  "date_ist": "2026-11-26",
-  "timestamp_ist": "2026-11-26 08:56:07 IST",
-  "source_video_id": "",
-  "source_episode": "",
-  "target_episode": "",
+  "status": "failed",
+  "date_ist": "2026-11-27",
+  "timestamp_ist": "2026-11-27 00:19:39 IST",
+  "source_video_id": "hlrc9_iw1jY",
+  "source_episode": "46",
+  "target_episode": "48",
   "youtube_video_id": "",
-  "error": "",
-  "log_tail": "== Sohni Aur Nahi Koi Honi | slot=11:00 IST | test=False | upload=True | publish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   no new unseen full episode for this show right now\n"
+  "error": "AttributeError: 'list' object has no attribute 'get'",
+  "log_tail": "ish_now=False\n1/7 find episode\n   uploads via RSS: 15\n   total uploads scanned (RSS + OAuth/API): 15\n   Sohni - Aur Nahi Koi Honi | 26 Nov 2026 | Full Episode 46 | Dangal TV Channel | https://www.youtube.com/watch?v=hlrc9_iw1jY\n  source episode/date: 46 / 26 Nov 2026; two-day target: 48 / 28 Nov 2026\n2/7 Gemini watches the episode\n  failed -> gemini-flash-latest 429\n  failed -> gemini-3.8-flash 503\n  failed -> gemini-3.7-flash 429\n  failed -> gemini-3.6-flash 429\n  failed -> gemini-3.5-flash 503\n  failed -> gemini-2.5-flash 404\n  failed -> gemini-flash-lite-latest 503\n  failed -> gemini-3.5-flash-lite 503\n  all models busy, retrying in 30s\n  failed -> gemini-flash-latest 429\n  failed -> gemini-3.8-flash 429\n  failed -> gemini-3.7-flash 429\n  failed -> gemini-3.6-flash 429\n  failed -> gemini-3.5-flash 429\n  failed -> gemini-2.5-flash 404\n  failed -> gemini-flash-lite-latest 503\n  failed -> gemini-3.5-flash-lite 503\n  all models busy, retrying in 60s\n  failed -> gemini-flash-latest 429\n  failed -> gemini-3.8-flash 429\n  failed -> gemini-3.7-flash 429\n  failed -> gemini-3.6-flash 429\n  analysed with gemini-3.5-flash\n  source thumbnail described with gemini-flash-lite-latest\nUNHANDLED ERROR:\n Traceback (most recent call last):\n  File \"/home/runner/work/serial-recap-bot/serial-recap-bot/recap/main.py\", line 100, in <module>\n    scenes = [s for s in data.get(\"scenes\", []) if s.get(\"narration\")]\n                         ^^^^^^^^\nAttributeError: 'list' object has no attribute 'get'\n\n"
 }
