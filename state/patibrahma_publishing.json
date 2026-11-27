@@ -348,5 +348,19 @@
     },
     "source_episode": "477",
     "updated_at": "2026-11-26T02:53:55+00:00"
+  },
+  "Z9Khyo0z7gk": {
+    "source_video_id": "Z9Khyo0z7gk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-27T01:22:50+00:00",
+        "media_id": "JwVz5O8k_Ss",
+        "error": ""
+      }
+    },
+    "source_episode": "478",
+    "updated_at": "2026-11-27T01:22:50+00:00"
   }
 }
