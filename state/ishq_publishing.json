@@ -334,5 +334,19 @@
     },
     "source_episode": "262",
     "updated_at": "2026-11-27T01:20:51+00:00"
+  },
+  "slKtkct27LE": {
+    "source_video_id": "slKtkct27LE",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-27T18:44:30+00:00",
+        "media_id": "5upn5K0S8AM",
+        "error": ""
+      }
+    },
+    "source_episode": "263",
+    "updated_at": "2026-11-27T18:44:30+00:00"
   }
 }
