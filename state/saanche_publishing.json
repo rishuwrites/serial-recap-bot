@@ -138,5 +138,19 @@
     },
     "source_episode": "22",
     "updated_at": "2026-11-27T01:20:22+00:00"
+  },
+  "5dGGrOBGoJc": {
+    "source_video_id": "5dGGrOBGoJc",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-27T19:00:36+00:00",
+        "media_id": "SKOfipsiQ5w",
+        "error": ""
+      }
+    },
+    "source_episode": "23",
+    "updated_at": "2026-11-27T19:00:36+00:00"
   }
 }
