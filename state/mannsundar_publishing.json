@@ -390,5 +390,19 @@
     },
     "source_episode": "1800",
     "updated_at": "2026-11-26T18:44:57+00:00"
+  },
+  "5qvC18xS1js": {
+    "source_video_id": "5qvC18xS1js",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-27T18:45:27+00:00",
+        "media_id": "Jug2MN7WJNk",
+        "error": ""
+      }
+    },
+    "source_episode": "1801",
+    "updated_at": "2026-11-27T18:45:27+00:00"
   }
 }
