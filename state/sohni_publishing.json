@@ -362,5 +362,19 @@
     },
     "source_episode": "46",
     "updated_at": "2026-11-27T01:21:04+00:00"
+  },
+  "30VVXcJv-fk": {
+    "source_video_id": "30VVXcJv-fk",
+    "platforms": {
+      "youtube": {
+        "status": "success",
+        "attempts": 0,
+        "updated_at": "2026-11-27T18:53:29+00:00",
+        "media_id": "W-pUIX1sde4",
+        "error": ""
+      }
+    },
+    "source_episode": "47",
+    "updated_at": "2026-11-27T18:53:29+00:00"
   }
 }
